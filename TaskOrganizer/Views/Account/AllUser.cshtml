@@ -1,0 +1,136 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Database.User>
+@using Microsoft.EntityFrameworkCore;
+
+@using Database
+@{
+    ViewData["Title"] = "AllUser";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<style>
+
+
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 1px solid red;
+    }
+
+    .AvatarPhoto--color2.AvatarPhoto {
+        background-color: forestgreen;
+        color: white;
+    }
+
+    .ProfilePageHeader-avatar {
+        flex-shrink: 0;
+    }
+
+    .Avatar {
+        align-items: center;
+        background: lightGray;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 7%);
+        box-sizing: border-box;
+        color: #fff;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+        vertical-align: top;
+    }
+
+    .AvatarPhoto1--xlarge1 {
+        font-size: 30px;
+        height: 88px;
+        line-height: 88px;
+        min-width: 88px;
+        width: 88px;
+    }
+
+    .AvatarPhoto--default {
+        background: center/cover var(--color-customization-background-deprecated-opaque);
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 7%);
+        box-sizing: border-box;
+        color: var(--color-customization-foreground);
+    }
+
+    .AvatarPhoto {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+        vertical-align: top;
+    }
+</style>
+<!--**********************************
+            Content body start
+        ***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <form method="get" asp-controller="Account" asp-action="AllUser">
+                <div class="input-group contacts-search mb-4">
+                    <input type="Search" name="Search" class="form-control" placeholder="Search here...">
+                    <span class="input-group-text"><button style="border:0;size:20px;color:gray" type="submit" asp-controller="Account" asp-action="AllUser"><i class="flaticon-381-search-2"></i></button></span>
+                </div>
+            </form>
+            <div class="mb-4">
+                <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-rounded fs-18">+ Add New User</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="row">
+                    @foreach (var obj in Model)
+                    {
+                        if(!obj.IsAdmin){
+                        <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6 items">
+                            <div class="card contact-bx item-content" onclick="location.href='@Url.Action("UserProfile","Account",new {id=obj.UserID},null)'">
+                                <div class="card-body user-profile pb-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="image-bx">
+                                            @{
+                                                var n = @obj.FullName;
+                                                var a = n.Split(" ");
+                                                var b = a[0].Substring(0, 1);
+                                                var c = a[1].Substring(0, 1);
+                                                var d = b + c;
+                                            }
+
+                                            <div class="ProfilePageHeader-avatar Avatar AvatarPhoto AvatarPhoto--default AvatarPhoto1--xlarge1 AvatarPhoto--color2" role="img">
+                                                <div aria-hidden="true"> @d </div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3 text-start">
+                                            <h4 class="fs-18 font-w600">@obj.UserName</h4>
+                                            <span class="mb-2 d-block">@obj.FullName</span>
+                                            <span class="text-primary d-block">@obj.JoinDate.GetValueOrDefault().ToLongDateString()</span>
+                                        </div>
+                                    </div>
+                                    <div class="user-meta-info">
+                                        <ul>
+                                            <li><a href="javascript:void(0);"><i class="fas fa-phone-alt"></i></a>+91 @obj.ContactNo</li>
+                                            <li><a href="javascript:void(0);"><i class="far fa-comment-alt"></i></a>@obj.EmailID</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+                <!--End of all user-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->

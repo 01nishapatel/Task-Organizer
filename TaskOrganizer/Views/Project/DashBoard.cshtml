@@ -1,0 +1,3054 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*@model Database.Project
+@{
+	ViewData["Title"] = "DashBoard";
+	Layout="~/Pages/_Layout.cshtml";
+}*@
+@model Tuple<Database.Project,IEnumerable<Database.Project>,IEnumerable<Database.Task>,IEnumerable<Database.User>>
+@{
+    ViewData["Title"] = "DashBoard";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <h4 class="fs-32 font-w700">@Model.Item1.ProjectTitle<a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg3" class="fas fa-info-circle" style="font-size:large"></a></h4>
+                                <span class="mb-2 d-block">@Model.Item1.StartDate.GetValueOrDefault().ToString("D")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{
+            var c1 = 0;
+            var c2 = 0;
+            var c3 = 0;
+            var c4 = 0;
+            var count = 0;
+            @foreach (var m in Model.Item3)
+            {
+                @if (m.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (@m.Status == Database.Status.Pending)
+                    {
+
+                        c1++;
+                    }
+                    else if (@m.Status == Database.Status.Inprogess)
+                    {
+                        c2++;
+                    }
+                    else if (@m.Status == Database.Status.Completed)
+                    {
+                        c3++;
+                    }
+                    else if (@m.Status == Database.Status.Reassigned)
+                        c4++;
+                }
+                count = c1 + c2 + c3 + c4;
+            }
+        }
+
+        @{
+            var count1 = 0;
+            var count2 = 0;
+            var count3 = 0;
+            var count4 = 0;
+
+            @foreach (var m in Model.Item3)
+            {
+                @if (m.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (@m.TaskType == Database.TaskType.Bug)
+                    {
+
+                        count1++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.Enhancement)
+                    {
+                        count2++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.Design)
+                    {
+                        count3++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.QA)
+                        count4++;
+                }
+
+            }
+        }
+
+
+        @{
+
+            var b1 = 0;
+            var b2 = 0;
+            var b3 = 0;
+            var b4 = 0;
+            var e1 = 0;
+            var e2 = 0;
+            var e3 = 0;
+            var e4 = 0;
+            var d1 = 0;
+            var d2 = 0;
+            var d3 = 0;
+            var d4 = 0;
+            var q1 = 0;
+            var q2 = 0;
+            var q3 = 0;
+            var q4 = 0;
+
+            @foreach (var p in Model.Item3)
+            {
+                @if (p.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (@p.TaskType == Database.TaskType.Bug)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            b1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            b2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            b3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            b4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.Enhancement)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            e1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            e2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            e3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            e4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.Design)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            d1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            d2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            d3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            d4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.QA)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            q1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            q2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            q3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            q4++;
+                        }
+                    }
+                }
+            }
+        }
+
+        @{
+            var status = @Model.Item1.StartDate;
+            var status1 = @Model.Item1.EndDate;
+            var n1 = 0;
+            var n2 = 0;
+            DateTime now1 = DateTime.Now;
+            foreach (var m in Model.Item3)
+            {
+                if (m.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (now1 <= status1)
+                    {
+                        if (m.Status == Database.Status.Completed)
+                        {
+                            n1++;
+                        }
+                    }
+                }
+                n2 = n1 * 100 / count;
+
+            }
+        }
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card text-white bg-danger align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Pending Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c1
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-info align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Inprogress Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c2
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-success align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Completed Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c3
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Reassigned Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c4
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-xl-12">
+            <div class="card">
+                <div class="card-header border-0 fs-30 font-w700">Progress bar</div>
+                <div class="card-body">
+                    <div class="progress breadcrumb default-progress" style="height: 25px;">
+                        <div id="divprogress" class="progress-bar bg-success progress-animated" style="width:@n2%; height:25px;" role="progressbar">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-end mt-1 justify-content-between">
+                        <span class="fs-4"><small class="text-black font-w700">@c3</small> Task Completed</span>
+                        <span class="fs-4">End date: @Model.Item1.EndDate.GetValueOrDefault().ToString("D")</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="fs-30 font-w700">Tasks by Section</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="barChart_12"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <h4 class="fs-30 font-w700">All Tasks by all status</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-6">
+                                            <div>
+                                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#fc2e53" />
+                                                        </svg>
+                                                        Pending
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c1</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#d653c1" />
+                                                        </svg>
+                                                        Inprogress
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c2</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#09bd3c" />
+                                                        </svg>
+                                                        Completed
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c3</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#94618e" />
+                                                        </svg>
+                                                        Reassigned
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c4</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 text-center">
+                                            <div id="emailchart12" class="mb-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-xl-12" style="block-size:max-content;">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="fs-30 font-w700">Project By Task Type</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="horizontal-bar-chart12" class="ct-chart ct-golden-section chartlist-chart"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Contents/vendor/global/global.min.js"></script>
+<script src="~/Contents/vendor/owl-carousel/owl.carousel.js"></script>
+<script src="~/Contents/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<!-- Dashboard 1 -->
+<script src="~/Contents/vendor/draggable/draggable.js"></script>
+<script src="~/Contents/js/custom.min.js"></script>
+<script src="~/Contents/js/dlabnav-init.js"></script>
+
+<script src="~/Contents/vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="~/Contents/vendor/peity/jquery.peity.min.js"></script>
+<!-- Dashboard 1 -->
+<script src="~/Contents/js/dashboard/dashboard-1.js"></script>
+<!-- Apex Chart -->
+<script src="~/Contents/vendor/apexchart/apexchart.js"></script>
+<!-- Chart ChartJS plugin files -->
+<script src="~/Contents/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="~/Contents/js/plugins-init/chartist-init.js"></script>
+<script src="~/Contents/js/plugins-init/chartjs-init.js"></script>
+<script src="~Contents/vendor/chartist/js/chartist.min.js"></script>
+<!-- Apex Chart -->
+<script src="~/Contents/vendor/apexchart/apexchart.js"></script>
+
+<!-- Chart Chartist plugin files -->
+<script src="~/Contents/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="~/Contents/vendor/chartist/js/chartist.min.js"></script>
+<script src="~/Contents/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="~/Contents/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="~/Contents/js/plugins-init/chartist-init.js"></script>
+
+<script src="~/Contents/js/custom.min.js"></script>
+<script src="~/Contents/js/dlabnav-init.js"></script>
+<script src="~/Contents/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="~/Contents/js/plugins-init/sweetalert.init.js"></script>
+<script src="~/Contents/js/plugins-init/sweetalert-init.js"></script>
+<script src="~/Contents/vendor/toastr/js/toastr.min.js"></script>
+
+<!-- All init script -->
+<script src="~/Contents/js/plugins-init/toastr-init.js"></script>
+
+<script>
+    function cardsCenter() {
+        /*  testimonial one function by = owl.carousel.js */
+        jQuery('.card-slider').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            //center:true,
+            slideSpeed: 3000,
+            paginationSpeed: 3000,
+            dots: false,
+            navText: ['', ''],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                576: {
+                    items: 2
+                },
+                800: {
+                    items: 2
+                },
+                991: {
+                    items: 2
+                },
+                1200: {
+                    items: 3
+                },
+                1600: {
+                    items: 4
+                }
+            }
+        })
+    }
+
+    jQuery(window).on('load', function() {
+        setTimeout(function() {
+            cardsCenter();
+        }, 1000);
+    });
+
+</script>
+@using (@Html.BeginForm("DashBoard", "Project", FormMethod.Post))
+{
+    <div class="modal fade bd-example-modal-lg3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-12">
+                                <div class="authincation-content">
+                                    <div class="row no-gutters">
+                                        <div class="col-xl-20">
+                                            <div class="auth-form">
+                                                <button type="button" class="btn-close text-right" data-bs-dismiss="modal">
+                                                </button>
+                                                <div class="text-center mb-3">
+                                                    <img src="~/Contents/images/logo.png" alt="">
+                                                    <h3 class="text-center mb-4">Project Details</h3>
+                                                </div>
+
+                                                <form asp-action="Edit" method="post">
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Item1.ProjectTitle"><strong>Project Name</strong></label>
+                                                        <input type="text" class="form-control" asp-for="Item1.ProjectTitle" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Item1.Key"><strong>Key</strong></label>
+                                                        <input type="text" class="form-control" asp-for="Item1.Key" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Item1.Duration"><strong>Duration</strong></label>
+                                                        <input type="text" class="form-control" asp-for="Item1.Duration" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1"><strong>Description</strong></label>
+                                                        <textarea name="txtarea1" id="txtarea1" cols="20" rows="3" class="form-control" asp-for="Item1.Description" readonly></textarea>
+                                                    </div>
+                                                    @{
+                                                        var name = "";
+                                                        foreach (var obj in Model.Item2)
+                                                        {
+                                                            foreach (var item in Model.Item4)
+                                                            {
+                                                                if (@obj.UserID == item.UserID)
+                                                                    name = item.UserName;
+                                                            }
+                                                        }
+                                                    }
+                                                    <div class="mb-3">
+                                                        <label class="mb-1"><strong>Created By</strong></label>
+                                                        <input type="text" class="form-control" value="@name" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Item1.StartDate"><strong>Start Date</strong></label>
+                                                        <input type="date" class="form-control" asp-for="Item1.StartDate" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Item1.EndDate"><strong>End Date</strong></label>
+                                                        <input type="date" class="form-control" placeholder="Date" asp-for="Item1.EndDate" readonly>
+                                                    </div>
+
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <button type="submit" class="btn btn-dark mb-2  me-2" id="toastr-success-bottom-center" asp-route-id="@Model.Item1.ProjectID" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg12" asp-controller="Project" asp-action="Edit">Edit</button>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <button type="submit" class="btn btn-dark mb-2" data-bs-dismiss="modal"> Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<script type="text/javascript">
+    (function($) {
+        "use strict"
+
+
+
+
+        var dlabSparkLine = function() {
+            let draw = Chart.controllers.line.__super__.draw; //draw shadow
+
+            var screenWidth = $(window).width();
+
+            var barChart1 = function() {
+                if (jQuery('#barChart_12').length > 0) {
+                    const barChart_12 = document.getElementById("barChart_12").getContext('2d');
+
+                    barChart_12.height = 100;
+
+                    new Chart(barChart_12, {
+                        type: 'bar',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Bug", "Enhancement", "Design", "QA"],
+                            datasets: [
+                                {
+                                    label: "",
+                                    data: [@count1, @count2, @count3, @count4],
+                                    borderColor: 'rgba(0,161,91)',
+                                    borderWidth: "0",
+                                    backgroundColor: 'rgba(0,161,91)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    // Change here
+                                    barPercentage: 0.5
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+            var barChart2 = function() {
+                if (jQuery('#barChart_2').length > 0) {
+
+                    //gradient bar chart
+                    const barChart_2 = document.getElementById("barChart_2").getContext('2d');
+                    //generate gradient
+                    const barChart_2gradientStroke = barChart_2.createLinearGradient(0, 0, 0, 250);
+                    barChart_2gradientStroke.addColorStop(0, "rgba(0,161,91)");
+                    barChart_2gradientStroke.addColorStop(1, "rgba(0,161,91, 0.5)");
+
+                    barChart_2.height = 100;
+
+                    new Chart(barChart_2, {
+                        type: 'bar',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [65, 59, 80, 81, 56, 55, 40],
+                                    borderColor: barChart_2gradientStroke,
+                                    borderWidth: "0",
+                                    backgroundColor: barChart_2gradientStroke,
+                                    hoverBackgroundColor: barChart_2gradientStroke
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    // Change here
+                                    barPercentage: 0.5
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+
+            var barChart3 = function() {
+                //stalked bar chart
+                if (jQuery('#barChart_3').length > 0) {
+                    const barChart_3 = document.getElementById("barChart_3").getContext('2d');
+                    //generate gradient
+                    const barChart_3gradientStroke = barChart_3.createLinearGradient(50, 100, 50, 50);
+                    barChart_3gradientStroke.addColorStop(0, "rgba(0,161,91)");
+                    barChart_3gradientStroke.addColorStop(1, "rgba(0,161,91, 0.5)");
+
+                    const barChart_3gradientStroke2 = barChart_3.createLinearGradient(50, 100, 50, 50);
+                    barChart_3gradientStroke2.addColorStop(0, "rgba(98, 126, 234, 1)");
+                    barChart_3gradientStroke2.addColorStop(1, "rgba(98, 126, 234, 1)");
+
+                    const barChart_3gradientStroke3 = barChart_3.createLinearGradient(50, 100, 50, 50);
+                    barChart_3gradientStroke3.addColorStop(0, "rgba(238, 60, 60, 1)");
+                    barChart_3gradientStroke3.addColorStop(1, "rgba(238, 60, 60, 1)");
+
+                    barChart_3.height = 100;
+
+                    let barChartData = {
+                        defaultFontFamily: 'Poppins',
+                        labels: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Red',
+                            backgroundColor: barChart_3gradientStroke,
+                            hoverBackgroundColor: barChart_3gradientStroke,
+                            data: [
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12'
+                            ]
+                        }, {
+                            label: 'Green',
+                            backgroundColor: barChart_3gradientStroke2,
+                            hoverBackgroundColor: barChart_3gradientStroke2,
+                            data: [
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12'
+                            ]
+                        }, {
+                            label: 'Blue',
+                            backgroundColor: barChart_3gradientStroke3,
+                            hoverBackgroundColor: barChart_3gradientStroke3,
+                            data: [
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12',
+                                '12'
+                            ]
+                        }]
+
+                    };
+
+                    new Chart(barChart_3, {
+                        type: 'bar',
+                        data: barChartData,
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: false
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false
+                            },
+                            responsive: true,
+                            scales: {
+                                xAxes: [{
+                                    stacked: true,
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+            var lineChart1 = function() {
+
+
+                if (jQuery('#lineChart_1').length > 0) {
+
+
+                    //basic line chart
+                    const lineChart_1 = document.getElementById("lineChart_1").getContext('2d');
+
+                    Chart.controllers.line = Chart.controllers.line.extend({
+                        draw: function() {
+                            draw.apply(this, arguments);
+                            let nk = this.chart.chart.ctx;
+                            let _stroke = nk.stroke;
+                            nk.stroke = function() {
+                                nk.save();
+                                nk.shadowColor = 'rgba(255, 0, 0, .2)';
+                                nk.shadowBlur = 10;
+                                nk.shadowOffsetX = 0;
+                                nk.shadowOffsetY = 10;
+                                _stroke.apply(this, arguments)
+                                nk.restore();
+                            }
+                        }
+                    });
+
+                    lineChart_1.height = 100;
+
+                    new Chart(lineChart_1, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Febr", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: 'rgba(0,161,91)',
+                                    borderWidth: "2",
+                                    backgroundColor: 'transparent',
+                                    pointBackgroundColor: 'rgba(0,161,91)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }
+            }
+
+            var lineChart2 = function() {
+                //gradient line chart
+                if (jQuery('#lineChart_2').length > 0) {
+
+                    const lineChart_2 = document.getElementById("lineChart_2").getContext('2d');
+                    //generate gradient
+                    const lineChart_2gradientStroke = lineChart_2.createLinearGradient(500, 0, 100, 0);
+                    lineChart_2gradientStroke.addColorStop(0, "rgba(0,161,91)");
+                    lineChart_2gradientStroke.addColorStop(1, "rgba(0,161,91, 0.5)");
+
+                    Chart.controllers.line = Chart.controllers.line.extend({
+                        draw: function() {
+                            draw.apply(this, arguments);
+                            let nk = this.chart.chart.ctx;
+                            let _stroke = nk.stroke;
+                            nk.stroke = function() {
+                                nk.save();
+                                nk.shadowColor = 'rgba(0, 0, 128, .2)';
+                                nk.shadowBlur = 10;
+                                nk.shadowOffsetX = 0;
+                                nk.shadowOffsetY = 10;
+                                _stroke.apply(this, arguments)
+                                nk.restore();
+                            }
+                        }
+                    });
+
+                    lineChart_2.height = 100;
+
+                    new Chart(lineChart_2, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: lineChart_2gradientStroke,
+                                    borderWidth: "2",
+                                    backgroundColor: 'transparent',
+                                    pointBackgroundColor: 'rgba(0,161,91, 0.5)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+            var lineChart3 = function() {
+                //dual line chart
+                if (jQuery('#lineChart_3').length > 0) {
+                    const lineChart_3 = document.getElementById("lineChart_3").getContext('2d');
+                    //generate gradient
+                    const lineChart_3gradientStroke1 = lineChart_3.createLinearGradient(500, 0, 100, 0);
+                    lineChart_3gradientStroke1.addColorStop(0, "rgba(0,161,91)");
+                    lineChart_3gradientStroke1.addColorStop(1, "rgba(0,161,91, 0.5)");
+
+                    const lineChart_3gradientStroke2 = lineChart_3.createLinearGradient(500, 0, 100, 0);
+                    lineChart_3gradientStroke2.addColorStop(0, "rgba(255, 92, 0, 1)");
+                    lineChart_3gradientStroke2.addColorStop(1, "rgba(255, 92, 0, 1)");
+
+                    Chart.controllers.line = Chart.controllers.line.extend({
+                        draw: function() {
+                            draw.apply(this, arguments);
+                            let nk = this.chart.chart.ctx;
+                            let _stroke = nk.stroke;
+                            nk.stroke = function() {
+                                nk.save();
+                                nk.shadowColor = 'rgba(0, 0, 0, 0)';
+                                nk.shadowBlur = 10;
+                                nk.shadowOffsetX = 0;
+                                nk.shadowOffsetY = 10;
+                                _stroke.apply(this, arguments)
+                                nk.restore();
+                            }
+                        }
+                    });
+
+                    lineChart_3.height = 100;
+
+                    new Chart(lineChart_3, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: lineChart_3gradientStroke1,
+                                    borderWidth: "2",
+                                    backgroundColor: 'transparent',
+                                    pointBackgroundColor: 'rgba(0,161,91, 0.5)'
+                                }, {
+                                    label: "My First dataset",
+                                    data: [5, 20, 15, 41, 35, 65, 80],
+                                    borderColor: lineChart_3gradientStroke2,
+                                    borderWidth: "2",
+                                    backgroundColor: 'transparent',
+                                    pointBackgroundColor: 'rgba(254, 176, 25, 1)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+            var lineChart03 = function() {
+                //dual line chart
+                if (jQuery('#lineChart_3Kk').length > 0) {
+                    const lineChart_3Kk = document.getElementById("lineChart_3Kk").getContext('2d');
+                    //generate gradient
+
+                    Chart.controllers.line = Chart.controllers.line.extend({
+                        draw: function() {
+                            draw.apply(this, arguments);
+                            let nk = this.chart.chart.ctx;
+                            let _stroke = nk.stroke;
+                            nk.stroke = function() {
+                                nk.save();
+                                nk.shadowColor = 'rgba(0, 0, 0, 0)';
+                                nk.shadowBlur = 10;
+                                nk.shadowOffsetX = 0;
+                                nk.shadowOffsetY = 10;
+                                _stroke.apply(this, arguments)
+                                nk.restore();
+                            }
+                        }
+                    });
+
+                    lineChart_3Kk.height = 100;
+
+                    new Chart(lineChart_3Kk, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [90, 60, 80, 50, 60, 55, 80],
+                                    borderColor: 'rgba(58,122,254,1)',
+                                    borderWidth: "3",
+                                    backgroundColor: 'rgba(0,0,0,0)',
+                                    pointBackgroundColor: 'rgba(0, 0, 0, 0)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            elements: {
+                                point: {
+                                    radius: 0
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    },
+                                    borderWidth: 3,
+                                    display: false,
+                                    lineTension: 0.4,
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    },
+
+                                }]
+                            }
+                        }
+                    });
+                }
+
+            }
+            var areaChart1 = function() {
+                //basic area chart
+                if (jQuery('#areaChart_1').length > 0) {
+                    const areaChart_1 = document.getElementById("areaChart_1").getContext('2d');
+
+                    areaChart_1.height = 100;
+
+                    new Chart(areaChart_1, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: 'rgba(0, 0, 1128, .3)',
+                                    borderWidth: "1",
+                                    backgroundColor: 'rgba(255,167,215,1)',
+                                    pointBackgroundColor: 'rgba(0, 0, 1128, .3)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+            var areaChart2 = function() {
+                //gradient area chart
+                if (jQuery('#areaChart_2').length > 0) {
+                    const areaChart_2 = document.getElementById("areaChart_2").getContext('2d');
+                    //generate gradient
+                    const areaChart_2gradientStroke = areaChart_2.createLinearGradient(0, 1, 0, 500);
+                    areaChart_2gradientStroke.addColorStop(0, "rgba(238, 60, 60, 0.2)");
+                    areaChart_2gradientStroke.addColorStop(1, "rgba(238, 60, 60, 0)");
+
+                    areaChart_2.height = 100;
+
+                    new Chart(areaChart_2, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: "#ff2625",
+                                    borderWidth: "4",
+                                    backgroundColor: areaChart_2gradientStroke
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 5
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+
+            var areaChart3 = function() {
+                //gradient area chart
+                if (jQuery('#areaChart_3').length > 0) {
+                    const areaChart_3 = document.getElementById("areaChart_3").getContext('2d');
+
+                    areaChart_3.height = 100;
+
+                    new Chart(areaChart_3, {
+                        type: 'line',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [25, 20, 60, 41, 66, 45, 80],
+                                    borderColor: 'rgb(0,161,91)',
+                                    borderWidth: "1",
+                                    backgroundColor: 'rgba(255,167,215,1)'
+                                },
+                                {
+                                    label: "My First dataset",
+                                    data: [5, 25, 20, 41, 36, 75, 70],
+                                    borderColor: 'rgb(255, 92, 0)',
+                                    borderWidth: "1",
+                                    backgroundColor: 'rgba(255, 92, 0, .5)'
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        min: 0,
+                                        stepSize: 20,
+                                        padding: 10
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        padding: 5
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+
+            var radarChart = function() {
+                if (jQuery('#radar_chart').length > 0) {
+                    //radar chart
+                    const radar_chart = document.getElementById("radar_chart").getContext('2d');
+
+                    const radar_chartgradientStroke1 = radar_chart.createLinearGradient(500, 0, 100, 0);
+                    radar_chartgradientStroke1.addColorStop(0, "rgba(54, 185, 216, .5)");
+                    radar_chartgradientStroke1.addColorStop(1, "rgba(75, 255, 162, .5)");
+
+                    const radar_chartgradientStroke2 = radar_chart.createLinearGradient(500, 0, 100, 0);
+                    radar_chartgradientStroke2.addColorStop(0, "rgba(68, 0, 235, .5");
+                    radar_chartgradientStroke2.addColorStop(1, "rgba(68, 236, 245, .5");
+
+                    // radar_chart.height = 100;
+                    new Chart(radar_chart, {
+                        type: 'radar',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            labels: [["Eating", "Dinner"], ["Drinking", "Water"], "Sleeping", ["Designing", "Graphics"], "Coding", "Cycling", "Running"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    data: [65, 59, 66, 45, 56, 55, 40],
+                                    borderColor: '#f21780',
+                                    borderWidth: "1",
+                                    backgroundColor: radar_chartgradientStroke2
+                                },
+                                {
+                                    label: "My Second dataset",
+                                    data: [28, 12, 40, 19, 63, 27, 87],
+                                    borderColor: '#f21780',
+                                    borderWidth: "1",
+                                    backgroundColor: radar_chartgradientStroke1
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: false,
+                            maintainAspectRatio: false,
+                            scale: {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            var pieChart = function() {
+                //pie chart
+                if (jQuery('#pie_chart').length > 0) {
+                    //pie chart
+                    const pie_chart = document.getElementById("pie_chart").getContext('2d');
+                    // pie_chart.height = 100;
+                    new Chart(pie_chart, {
+                        type: 'pie',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            datasets: [{
+                                data: [45, 25, 20, 10],
+                                borderWidth: 0,
+                                backgroundColor: [
+                                    "rgba(0,161,91, .9)",
+                                    "rgba(0,161,91, .7)",
+                                    "rgba(255,167,215,1)",
+                                    "rgba(0,0,0,0.07)"
+                                ],
+                                hoverBackgroundColor: [
+                                    "rgba(0,161,91, .9)",
+                                    "rgba(0,161,91, .7)",
+                                    "rgba(255,167,215,1)",
+                                    "rgba(0,0,0,0.07)"
+                                ]
+
+                            }],
+                            labels: [
+                                "one",
+                                "two",
+                                "three",
+                                "four"
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: false,
+                            maintainAspectRatio: false
+                        }
+                    });
+                }
+            }
+            var doughnutChart = function() {
+                if (jQuery('#doughnut_chart').length > 0) {
+                    //doughut chart
+                    const doughnut_chart = document.getElementById("doughnut_chart").getContext('2d');
+                    // doughnut_chart.height = 100;
+                    new Chart(doughnut_chart, {
+                        type: 'doughnut',
+                        data: {
+                            weight: 5,
+                            defaultFontFamily: 'Poppins',
+                            datasets: [{
+                                data: [45, 25, 20],
+                                borderWidth: 3,
+                                borderColor: "rgba(255,255,255,1)",
+                                backgroundColor: [
+                                    "rgba(0,161,91)",
+                                    "rgba(98, 126, 234, 1)",
+                                    "rgba(238, 60, 60, 1)"
+                                ],
+                                hoverBackgroundColor: [
+                                    "rgba(0,161,91, 0.9)",
+                                    "rgba(98, 126, 234, .9)",
+                                    "rgba(238, 60, 60, .9)"
+                                ]
+
+                            }],
+
+                        },
+                        options: {
+                            weight: 1,
+                            cutoutPercentage: 70,
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                }
+            }
+            var polarChart = function() {
+                if (jQuery('#polar_chart').length > 0) {
+                    //polar chart
+                    const polar_chart = document.getElementById("polar_chart").getContext('2d');
+                    // polar_chart.height = 100;
+                    new Chart(polar_chart, {
+                        type: 'polarArea',
+                        data: {
+                            defaultFontFamily: 'Poppins',
+                            datasets: [{
+                                data: [15, 18, 9, 6, 19],
+                                borderWidth: 0,
+                                backgroundColor: [
+                                    "rgba(0,161,91)",
+                                    "rgba(98, 126, 234, 1)",
+                                    "rgba(238, 60, 60, 1)",
+                                    "rgba(54, 147, 255, 1)",
+                                    "rgba(255, 92, 0, 1)"
+                                ]
+
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+
+                }
+            }
+
+
+
+            /* Function ============ */
+            return {
+                init: function() {
+                },
+
+
+                load: function() {
+                    barChart1();
+                    barChart2();
+                    barChart3();
+                    lineChart1();
+                    lineChart2();
+                    lineChart3();
+                    lineChart03();
+                    areaChart1();
+                    areaChart2();
+                    areaChart3();
+                    radarChart();
+                    pieChart();
+                    doughnutChart();
+                    polarChart();
+                },
+
+                resize: function() {
+
+                }
+            }
+
+        }();
+
+        jQuery(document).ready(function() {
+        });
+
+        jQuery(window).on('load', function() {
+            dlabSparkLine.load();
+        });
+
+        jQuery(window).on('resize', function() {
+            //dlabSparkLine.resize();
+            setTimeout(function() { dlabSparkLine.resize(); }, 1000);
+        });
+
+    })(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+
+
+    (function($) {
+        /* "use strict" */
+
+        var dlabChartlist = function() {
+
+            var screenWidth = $(window).width();
+            let draw = Chart.controllers.line.__super__.draw; //draw shadow
+
+
+
+
+            var activityChart = function() {
+                var activity = document.getElementById("activity");
+                if (activity !== null) {
+                    var activityData = [{
+                        first: [30, 35, 30, 50, 30, 50, 40, 45],
+                        second: [20, 25, 20, 15, 25, 22, 24, 20]
+
+                    },
+                    {
+                        first: [35, 35, 40, 30, 38, 40, 50, 38],
+                        second: [30, 20, 35, 20, 25, 30, 25, 20]
+
+                    },
+                    {
+                        first: [35, 40, 40, 30, 38, 32, 42, 32],
+                        second: [20, 25, 35, 25, 22, 21, 21, 38]
+
+                    },
+                    {
+                        first: [35, 40, 30, 38, 32, 42, 30, 35],
+                        second: [25, 30, 35, 25, 20, 22, 25, 38]
+
+                    }
+                    ];
+                    activity.height = 300;
+
+                    var config = {
+                        type: "line",
+                        data: {
+                            labels: [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5",
+                            ],
+                            datasets: [{
+                                label: "Active",
+                                backgroundColor: "rgba(82, 177, 65, 0)",
+                                borderColor: "#3FC55E",
+                                data: activityData[0].first,
+                                borderWidth: 6
+                            },
+                            {
+                                label: "Inactive",
+                                backgroundColor: 'rgba(255, 142, 38, 0)',
+                                borderColor: "#4955FA",
+                                data: activityData[0].second,
+                                borderWidth: 6,
+
+                            },
+                            {
+                                label: "Inactive",
+                                backgroundColor: 'rgba(255, 142, 38, 0)',
+                                borderColor: "#F04949",
+                                data: activityData[0].third,
+                                borderWidth: 6,
+
+                            }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            elements: {
+                                point: {
+                                    radius: 0
+                                }
+                            },
+                            legend: false,
+
+                            scales: {
+                                yAxes: [{
+                                    gridLines: {
+                                        color: "rgba(89, 59, 219,0.1)",
+                                        drawBorder: true
+                                    },
+                                    ticks: {
+                                        fontSize: 14,
+                                        fontColor: "#6E6E6E",
+                                        fontFamily: "Poppins"
+                                    },
+                                }],
+                                xAxes: [{
+                                    //FontSize: 40,
+                                    gridLines: {
+                                        display: false,
+                                        zeroLineColor: "transparent"
+                                    },
+                                    ticks: {
+                                        fontSize: 14,
+                                        stepSize: 5,
+                                        fontColor: "#6E6E6E",
+                                        fontFamily: "Poppins"
+                                    }
+                                }]
+                            },
+                            tooltips: {
+                                enabled: false,
+                                mode: "index",
+                                intersect: false,
+                                titleFontColor: "#888",
+                                bodyFontColor: "#555",
+                                titleFontSize: 12,
+                                bodyFontSize: 15,
+                                backgroundColor: "rgba(256,256,256,0.95)",
+                                displayColors: true,
+                                xPadding: 10,
+                                yPadding: 7,
+                                borderColor: "rgba(220, 220, 220, 0.9)",
+                                borderWidth: 2,
+                                caretSize: 6,
+                                caretPadding: 10
+                            }
+                        }
+                    };
+
+                    var ctx = document.getElementById("activity").getContext("2d");
+                    var myLine = new Chart(ctx, config);
+
+                    var items = document.querySelectorAll("#user-activity .nav-tabs .nav-item");
+                    items.forEach(function(item, index) {
+                        item.addEventListener("click", function() {
+                            config.data.datasets[0].data = activityData[index].first;
+                            config.data.datasets[1].data = activityData[index].second;
+                            config.data.datasets[2].data = activityData[index].third;
+                            myLine.update();
+                        });
+                    });
+                }
+
+
+            }
+            var redial = function() {
+                var options = {
+                    series: [70],
+                    chart: {
+                        type: 'radialBar',
+                        offsetY: 0,
+                        height: 300,
+                        sparkline: {
+                            enabled: true
+                        }
+                    },
+                    plotOptions: {
+                        radialBar: {
+                            startAngle: -190,
+                            endAngle: 190,
+                            track: {
+                                background: "var(--rgba-primary-1)",
+                                strokeWidth: '100%',
+                                margin: 5,
+                            },
+
+
+
+                            dataLabels: {
+                                name: {
+                                    show: false
+                                },
+                                value: {
+                                    offsetY: 5,
+                                    fontSize: '22px',
+                                    color: 'var(--primary)',
+                                    fontWeight: 700,
+                                }
+                            }
+                        }
+                    },
+                    responsive: [{
+                        breakpoint: 1600,
+                        options: {
+                            chart: {
+                                height: 200
+                            },
+                        }
+                    }
+
+                    ],
+                    grid: {
+                        padding: {
+                            top: -10
+                        }
+                    },
+
+                    fill: {
+                        type: 'gradient',
+                        colors: 'var(--primary)',
+
+                    },
+                    labels: ['Average Results'],
+                };
+
+                var chart = new ApexCharts(document.querySelector("#redial"), options);
+                chart.render();
+
+
+            }
+            var chartBar = function() {
+
+                var options = {
+                    series: [
+                        {
+                            name: 'Running',
+                            data: [50, 18, 90, 40, 90],
+                            //radius: 12,
+                        },
+                        {
+                            name: 'Cycling',
+                            data: [80, 40, 55, 20, 45]
+                        },
+
+                    ],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+
+                        toolbar: {
+                            show: false,
+                        },
+
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '60%',
+                            endingShape: "rounded",
+                            borderRadius: 12,
+                        },
+
+                    },
+                    states: {
+                        hover: {
+                            filter: 'none',
+                        }
+                    },
+                    colors: ['#008F53', '#FF5E4B'],
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    markers: {
+                        shape: "circle",
+                    },
+
+
+                    legend: {
+                        show: false,
+                        fontSize: '12px',
+                        labels: {
+                            colors: '#000000',
+
+                        },
+                        markers: {
+                            width: 18,
+                            height: 18,
+                            strokeWidth: 10,
+                            strokeColor: '#fff',
+                            fillColors: undefined,
+                            radius: 12,
+                        }
+                    },
+                    stroke: {
+                        show: true,
+                        width: 4,
+                        curve: 'smooth',
+                        lineCap: 'round',
+                        colors: ['transparent']
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                    },
+                    xaxis: {
+                        position: 'bottom',
+                        categories: ['Week 01', 'Week 02', 'Week 03', 'Week 04', 'Week 05'],
+                        labels: {
+                            style: {
+                                colors: '#787878',
+                                fontSize: '13px',
+                                fontFamily: 'poppins',
+                                fontWeight: 100,
+                                cssClass: 'apexcharts-xaxis-label',
+                            },
+                        },
+                        crosshairs: {
+                            show: false,
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            offsetX: -16,
+                            style: {
+                                colors: '#787878',
+                                fontSize: '13px',
+                                fontFamily: 'poppins',
+                                fontWeight: 100,
+                                cssClass: 'apexcharts-xaxis-label',
+                            },
+                        },
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shade: 'white',
+                            type: "vertical",
+                            shadeIntensity: 0.2,
+                            gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                            inverseColors: true,
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                            stops: [0, 50, 50],
+                            colorStops: []
+                        }
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return "$ " + val + " thousands"
+                            }
+                        }
+                    },
+                };
+
+                var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
+                chartBar1.render();
+            }
+            var reservationChart = function() {
+                var options = {
+                    series: [{
+                        name: 'series1',
+                        data: [400, 600, 200, 500, 900, 200, 300, 100]
+                    }, {
+                        name: 'series2',
+                        data: [200, 400, 250, 200, 300, 100, 400, 100]
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    colors: ["var(--primary)", '#FF5E4B'],
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        width: 6,
+                        curve: 'smooth',
+                    },
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        borderColor: '#EBEBEB',
+                        strokeDashArray: 6,
+                    },
+                    markers: {
+                        strokeWidth: 6,
+                        hover: {
+                            size: 15,
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            offsetX: -12,
+                            style: {
+                                colors: '#787878',
+                                fontSize: '13px',
+                                fontFamily: 'Poppins',
+                                fontWeight: 400
+
+                            }
+                        },
+                    },
+                    xaxis: {
+                        categories: ["April", "May", "June", "July", "August", "September", "October", "November"],
+                        labels: {
+                            style: {
+                                colors: '#787878',
+                                fontSize: '13px',
+                                fontFamily: 'Poppins',
+                                fontWeight: 400
+
+                            },
+                        }
+                    },
+                    fill: {
+                        type: "",
+                        opacity: 1
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'dd/MM/yy HH:mm'
+                        },
+                    },
+                };
+
+                var chart = new ApexCharts(document.querySelector("#reservationChart"), options);
+                chart.render();
+            }
+            var donutChart1 = function() {
+                $("span.donut1").peity("donut", {
+                    width: "90",
+                    height: "90"
+                });
+            }
+            var NewCustomers = function() {
+                var options = {
+                    series: [
+                        {
+                            name: 'Net Profit',
+                            data: [100, 300, 100, 400, 200, 400],
+                            /* radius: 30,	 */
+                        },
+                    ],
+                    chart: {
+                        type: 'line',
+                        height: 50,
+                        width: 100,
+                        toolbar: {
+                            show: false,
+                        },
+                        zoom: {
+                            enabled: false
+                        },
+                        sparkline: {
+                            enabled: true
+                        }
+
+                    },
+
+                    colors: ['var(--primary)'],
+                    dataLabels: {
+                        enabled: false,
+                    },
+
+                    legend: {
+                        show: false,
+                    },
+                    stroke: {
+                        show: true,
+                        width: 6,
+                        curve: 'smooth',
+                        colors: ['var(--primary)'],
+                    },
+
+                    grid: {
+                        show: false,
+                        borderColor: '#eee',
+                        padding: {
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0
+
+                        }
+                    },
+                    states: {
+                        normal: {
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        },
+                        hover: {
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        },
+                        active: {
+                            allowMultipleDataPointsSelection: false,
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        }
+                    },
+                    xaxis: {
+                        categories: ['Jan', 'feb', 'Mar', 'Apr', 'May'],
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        labels: {
+                            show: false,
+                            style: {
+                                fontSize: '12px',
+                            }
+                        },
+                        crosshairs: {
+                            show: false,
+                            position: 'front',
+                            stroke: {
+                                width: 1,
+                                dashArray: 3
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            formatter: undefined,
+                            offsetY: 0,
+                            style: {
+                                fontSize: '12px',
+                            }
+                        }
+                    },
+                    yaxis: {
+                        show: false,
+                    },
+                    fill: {
+                        opacity: 1,
+                        colors: '#FB3E7A'
+                    },
+                    tooltip: {
+                        enabled: false,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        y: {
+                            formatter: function(val) {
+                                return "$" + val + " thousands"
+                            }
+                        }
+                    }
+                };
+
+                var chartBar1 = new ApexCharts(document.querySelector("#NewCustomers"), options);
+                chartBar1.render();
+
+            }
+            var NewCustomers1 = function() {
+                var options = {
+                    series: [
+                        {
+                            name: 'Net Profit',
+                            data: [100, 300, 200, 400, 100, 400],
+                            /* radius: 30,	 */
+                        },
+                    ],
+                    chart: {
+                        type: 'line',
+                        height: 50,
+                        width: 80,
+                        toolbar: {
+                            show: false,
+                        },
+                        zoom: {
+                            enabled: false
+                        },
+                        sparkline: {
+                            enabled: true
+                        }
+
+                    },
+
+                    colors: ['#0E8A74'],
+                    dataLabels: {
+                        enabled: false,
+                    },
+
+                    legend: {
+                        show: false,
+                    },
+                    stroke: {
+                        show: true,
+                        width: 6,
+                        curve: 'smooth',
+                        colors: ['var(--primary)'],
+                    },
+
+                    grid: {
+                        show: false,
+                        borderColor: '#eee',
+                        padding: {
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0
+
+                        }
+                    },
+                    states: {
+                        normal: {
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        },
+                        hover: {
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        },
+                        active: {
+                            allowMultipleDataPointsSelection: false,
+                            filter: {
+                                type: 'none',
+                                value: 0
+                            }
+                        }
+                    },
+                    xaxis: {
+                        categories: ['Jan', 'feb', 'Mar', 'Apr', 'May'],
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        labels: {
+                            show: false,
+                            style: {
+                                fontSize: '12px',
+                            }
+                        },
+                        crosshairs: {
+                            show: false,
+                            position: 'front',
+                            stroke: {
+                                width: 1,
+                                dashArray: 3
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            formatter: undefined,
+                            offsetY: 0,
+                            style: {
+                                fontSize: '12px',
+                            }
+                        }
+                    },
+                    yaxis: {
+                        show: false,
+                    },
+                    fill: {
+                        opacity: 1,
+                        colors: '#FB3E7A'
+                    },
+                    tooltip: {
+                        enabled: false,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        y: {
+                            formatter: function(val) {
+                                return "$" + val + " thousands"
+                            }
+                        }
+                    }
+                };
+
+                var chartBar1 = new ApexCharts(document.querySelector("#NewCustomers1"), options);
+                chartBar1.render();
+
+            }
+            var emailchart12 = function() {
+                var options = {
+                    series: [@c1, @c2, @c3, @c4],
+                    chart: {
+                        type: 'donut',
+                        height: 250
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        width: 0,
+                    },
+                    colors: ['#fc2e53', '#d653c1', '#09bd3c', '#94618e'],
+                    legend: {
+                        position: 'bottom',
+                        show: false
+                    },
+                    responsive: [{
+                        breakpoint: 1800,
+                        options: {
+                            chart: {
+                                height: 200
+                            },
+                        }
+                    },
+                    {
+                        breakpoint: 1800,
+                        options: {
+                            chart: {
+                                height: 200
+                            },
+                        }
+                    }
+                    ]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#emailchart12"), options);
+                chart.render();
+
+            }
+
+            /* Function ============ */
+            return {
+                init: function() {
+                },
+
+
+                load: function() {
+                    activityChart();
+                    redial();
+                    chartBar();
+                    reservationChart();
+                    donutChart1();
+                    NewCustomers();
+                    NewCustomers1();
+                    emailchart12();
+
+                },
+
+                resize: function() {
+                }
+            }
+
+        }();
+
+
+
+        jQuery(window).on('load', function() {
+            setTimeout(function() {
+                dlabChartlist.load();
+            }, 1000);
+
+        });
+
+
+
+    })(jQuery);
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    (function($) {
+        "use strict"
+
+
+        var dlabChartlist = function() {
+
+            var screenWidth = $(window).width();
+
+            var setChartWidth = function() {
+
+                if (screenWidth <= 768) {
+                    var chartBlockWidth = 0;
+                    if (screenWidth >= 500) {
+                        chartBlockWidth = 250;
+                    } else {
+                        chartBlockWidth = 300;
+                    }
+
+                    jQuery('.chartlist-chart').css('min-width', chartBlockWidth - 31);
+                }
+            }
+
+            var lineAnimatedChart = function() {
+
+                var chart = new Chartist.Line('#smil-animations', {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    series: [
+                        [12, 9, 7, 8, 5, 4, 6, 2, 3, 3, 4, 6],
+                        [4, 5, 3, 7, 3, 5, 5, 3, 4, 4, 5, 5],
+                        [5, 3, 4, 5, 6, 3, 3, 4, 5, 6, 3, 4],
+                        [3, 4, 5, 6, 7, 6, 4, 5, 6, 7, 6, 3]
+                    ]
+                }, {
+                    low: 0,
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+                // Let's put a sequence number aside so we can use it in the event callbacks
+                var seq = 0,
+                    delays = 80,
+                    durations = 500;
+
+                // Once the chart is fully created we reset the sequence
+                chart.on('created', function() {
+                    seq = 0;
+                });
+
+                // On each drawn element by Chartist we use the Chartist.Svg API to trigger SMIL animations
+                chart.on('draw', function(data) {
+                    seq++;
+
+                    if (data.type === 'line') {
+                        // If the drawn element is a line we do a simple opacity fade in. This could also be achieved using CSS3 animations.
+                        data.element.animate({
+                            opacity: {
+                                // The delay when we like to start the animation
+                                begin: seq * delays + 1000,
+                                // Duration of the animation
+                                dur: durations,
+                                // The value where the animation should start
+                                from: 0,
+                                // The value where it should end
+                                to: 1
+                            }
+                        });
+                    } else if (data.type === 'label' && data.axis === 'x') {
+                        data.element.animate({
+                            y: {
+                                begin: seq * delays,
+                                dur: durations,
+                                from: data.y + 100,
+                                to: data.y,
+                                // We can specify an easing function from Chartist.Svg.Easing
+                                easing: 'easeOutQuart'
+                            }
+                        });
+                    } else if (data.type === 'label' && data.axis === 'y') {
+                        data.element.animate({
+                            x: {
+                                begin: seq * delays,
+                                dur: durations,
+                                from: data.x - 100,
+                                to: data.x,
+                                easing: 'easeOutQuart'
+                            }
+                        });
+                    } else if (data.type === 'point') {
+                        data.element.animate({
+                            x1: {
+                                begin: seq * delays,
+                                dur: durations,
+                                from: data.x - 10,
+                                to: data.x,
+                                easing: 'easeOutQuart'
+                            },
+                            x2: {
+                                begin: seq * delays,
+                                dur: durations,
+                                from: data.x - 10,
+                                to: data.x,
+                                easing: 'easeOutQuart'
+                            },
+                            opacity: {
+                                begin: seq * delays,
+                                dur: durations,
+                                from: 0,
+                                to: 1,
+                                easing: 'easeOutQuart'
+                            }
+                        });
+                    } else if (data.type === 'grid') {
+                        // Using data.axis we get x or y which we can use to construct our animation definition objects
+                        var pos1Animation = {
+                            begin: seq * delays,
+                            dur: durations,
+                            from: data[data.axis.units.pos + '1'] - 30,
+                            to: data[data.axis.units.pos + '1'],
+                            easing: 'easeOutQuart'
+                        };
+
+                        var pos2Animation = {
+                            begin: seq * delays,
+                            dur: durations,
+                            from: data[data.axis.units.pos + '2'] - 100,
+                            to: data[data.axis.units.pos + '2'],
+                            easing: 'easeOutQuart'
+                        };
+
+                        var animations = {};
+                        animations[data.axis.units.pos + '1'] = pos1Animation;
+                        animations[data.axis.units.pos + '2'] = pos2Animation;
+                        animations['opacity'] = {
+                            begin: seq * delays,
+                            dur: durations,
+                            from: 0,
+                            to: 1,
+                            easing: 'easeOutQuart'
+                        };
+
+                        data.element.animate(animations);
+                    }
+                });
+
+                // For the sake of the example we update the chart every time it's created with a delay of 10 seconds
+                chart.on('created', function() {
+                    if (window.__exampleAnimateTimeout) {
+                        clearTimeout(window.__exampleAnimateTimeout);
+                        window.__exampleAnimateTimeout = null;
+                    }
+                    window.__exampleAnimateTimeout = setTimeout(chart.update.bind(chart), 12000);
+                });
+
+
+
+            }
+
+
+            var scatterChart = function() {
+                //Line Scatter Diagram
+                var times = function(n) {
+                    return Array.apply(null, new Array(n));
+                };
+
+                var data = times(52).map(Math.random).reduce(function(data, rnd, index) {
+                    data.labels.push(index + 1);
+                    data.series.forEach(function(series) {
+                        series.push(Math.random() * 100)
+                    });
+
+                    return data;
+                }, {
+                    labels: [],
+                    series: times(4).map(function() { return new Array() })
+                });
+
+                var options = {
+                    showLine: false,
+                    axisX: {
+                        labelInterpolationFnc: function(value, index) {
+                            return index % 13 === 0 ? 'W' + value : null;
+                        }
+                    }
+                };
+
+                var responsiveOptions = [
+                    ['screen and (min-width: 640px)', {
+                        axisX: {
+                            labelInterpolationFnc: function(value, index) {
+                                return index % 4 === 0 ? 'W' + value : null;
+                            }
+                        }
+                    }]
+                ];
+
+                new Chartist.Line('#scatter-diagram', data, options, responsiveOptions);
+            }
+
+            var simpleLineChart = function() {
+                //Simple line chart
+                new Chartist.Line('#simple-line-chart', {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                    series: [
+                        [12, 9, 7, 8, 5],
+                        [2, 1, 3.5, 7, 3],
+                        [1, 3, 4, 5, 6]
+                    ]
+                }, {
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 40
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+            }
+            var lineTooltipsChart = function() {
+                //Line chart with tooltips
+
+                new Chartist.Line('#line-chart-tooltips', {
+                    labels: ['1', '2', '3', '4', '5', '6'],
+                    series: [
+                        {
+                            name: 'Fibonacci sequence',
+                            data: [1, 2, 3, 5, 8, 13]
+                        },
+                        {
+                            name: 'Golden section',
+                            data: [1, 1.618, 2.618, 4.236, 6.854, 11.09]
+                        }
+                    ]
+                },
+                    {
+                        plugins: [
+                            Chartist.plugins.tooltip()
+                        ]
+                    }
+                );
+
+                var $chart = $('#line-chart-tooltips');
+
+                var $toolTip = $chart
+                    .append('<div class="tooltip"></div>')
+                    .find('.tooltip')
+                    .hide();
+
+                $chart.on('mouseenter', '.ct-point', function() {
+                    var $point = $(this),
+                        value = $point.attr('ct:value'),
+                        seriesName = $point.parent().attr('ct:series-name');
+                    $toolTip.html(seriesName + '<br>' + value).show();
+                });
+
+                $chart.on('mouseleave', '.ct-point', function() {
+                    $toolTip.hide();
+                });
+
+                $chart.on('mousemove', function(event) {
+                    $toolTip.css({
+                        left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+                        top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+                    });
+                });
+
+            }
+            var withAreaChart = function() {
+                //Line chart with area
+
+                new Chartist.Line('#chart-with-area', {
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8],
+                    series: [
+                        [5, 9, 7, 8, 5, 3, 5, 4]
+                    ]
+                }, {
+                    low: 0,
+                    showArea: true,
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+            }
+            var biPolarLineChart = function() {
+                //Bi-polar Line chart with area only
+
+                new Chartist.Line('#bi-polar-line', {
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8],
+                    series: [
+                        [1, 2, 3, 1, -2, 0, 1, 0],
+                        [-2, -1, -2, -1, -2.5, -1, -2, -1],
+                        [0, 0, 0, 1, 2, 2.5, 2, 1],
+                        [2.5, 2, 1, 0.5, 1, 0.5, -1, -2.5]
+                    ]
+                }, {
+                    high: 3,
+                    low: -3,
+                    showArea: true,
+                    showLine: false,
+                    showPoint: false,
+                    fullWidth: true,
+                    axisX: {
+                        showLabel: false,
+                        showGrid: false
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+            }
+            var svgAnimationChart = function() {
+                //SVG Path animation
+
+                var chart = new Chartist.Line('#svg-animation', {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    series: [
+                        [1, 5, 2, 5, 4, 3],
+                        [2, 3, 4, 8, 1, 2],
+                        [5, 4, 3, 2, 1, 0.5]
+                    ]
+                }, {
+                    low: 0,
+                    showArea: true,
+                    showPoint: false,
+                    fullWidth: true
+                });
+
+                chart.on('draw', function(data) {
+                    if (data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            var lineSmoothingChart = function() {
+                //Line Interpolation / Smoothing
+
+                var chart = new Chartist.Line('#line-smoothing', {
+                    labels: [1, 2, 3, 4, 5],
+                    series: [
+                        [1, 5, 10, 0, 1],
+                        [10, 15, 0, 1, 2]
+                    ]
+                }, {
+
+                    lineSmooth: Chartist.Interpolation.simple({
+                        divisor: 2
+                    }),
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 20
+                    },
+                    low: 0
+                });
+            }
+            var biPolarBarChart = function() {
+                //Bi-polar bar chart
+                var data = {
+                    labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'],
+                    series: [
+                        [1, 2, 4, 8, 6, -2, -1, -4, -6, -2]
+                    ]
+                };
+
+                var options = {
+                    high: 10,
+                    low: -10,
+                    axisX: {
+                        labelInterpolationFnc: function(value, index) {
+                            return index % 2 === 0 ? value : null;
+                        }
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                };
+
+                new Chartist.Bar('#bi-polar-bar', data, options);
+
+            }
+            var overlappingBarsChart = function() {
+                //Overlapping bars on mobile
+                var data = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    series: [
+                        [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+                        [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+                    ]
+                };
+                var options = {
+                    seriesBarDistance: 10
+                };
+                var responsiveOptions = [
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function(value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+                new Chartist.Bar('#overlapping-bars', data, options, responsiveOptions);
+            }
+            var multiLineChart = function() {
+                //Multi-line labels
+                new Chartist.Bar('#multi-line-chart', {
+                    labels: ['First quarter of the year', 'Second quarter of the year', 'Third quarter of the year', 'Fourth quarter of the year'],
+                    series: [
+                        [60000, 40000, 80000, 70000],
+                        [40000, 30000, 70000, 65000],
+                        [8000, 3000, 10000, 6000]
+                    ]
+                }, {
+                    seriesBarDistance: 10,
+                    axisX: {
+                        offset: 60
+                    },
+                    axisY: {
+                        offset: 80,
+                        labelInterpolationFnc: function(value) {
+                            return value + ' CHF'
+                        },
+                        scaleMinSpace: 15
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+            }
+            var stackedBarChart = function() {
+                //Stacked bar chart
+                new Chartist.Bar('#stacked-bar-chart', {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    series: [
+                        [800000, 1200000, 1400000, 1300000],
+                        [200000, 400000, 500000, 300000],
+                        [160000, 290000, 410000, 600000]
+                    ]
+                }, {
+                    stackBars: true,
+                    axisY: {
+                        labelInterpolationFnc: function(value) {
+                            return (value / 1000) + 'k';
+                        }
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                }).on('draw', function(data) {
+                    if (data.type === 'bar') {
+                        data.element.attr({
+                            style: 'stroke-width: 30px'
+                        });
+                    }
+                });
+            }
+            var horizontalBarChart = function() {
+                //Horizontal bar chart
+
+                new Chartist.Bar('#horizontal-bar-chart12', {
+                    labels: ['Bug', 'Enhancement', 'Design', 'QA'],
+                    series: [
+                        [@b1, @e1, @d1, @q1],
+                        [@b2, @e2, @d2, @q2],
+                        [@b3, @e3, @d3, @q3],
+                        [@b4, @e4, @d4, @q4]
+                    ]
+                }, {
+                    seriesBarDistance: 10,
+                    reverseData: true,
+                    horizontalBars: true,
+                    axisY: {
+                        offset: 80,
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+            }
+
+            var extremeChart = function() {
+                // Extreme responsive configuration
+
+                new Chartist.Bar('#extreme-chart12', {
+                    labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                    series: [
+                        [@b1, @e1, @d1, @q1],
+                        [@b2, @e2, @d2, @q2],
+                        [@b3, @e3, @d3, @q3],
+                        [@b4, @e4, @d4, @q4]
+                    ]
+                }, {
+                    // Default mobile configuration
+                    stackBars: true,
+                    horizontalBars: true,
+                    axisX: {
+                        labelInterpolationFnc: function(value) {
+                            return value.split(/\s+/).map(function(word) {
+                                return word[0];
+                            }).join('');
+                        }
+                    },
+                    axisY: {
+                        offset: 20
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                }, [
+                    // Options override for media > 400px
+                    ['screen and (min-width: 400px)', {
+                        reverseData: true,
+                        horizontalBars: true,
+                        axisX: {
+                            labelInterpolationFnc: Chartist.noop
+                        },
+                        axisY: {
+                            offset: 60
+                        }
+                    }],
+                    // Options override for media > 800px
+                    ['screen and (min-width: 800px)', {
+                        stackBars: false,
+                        seriesBarDistance: 10
+                    }],
+                    // Options override for media > 1000px
+                    ['screen and (min-width: 1000px)', {
+                        reverseData: false,
+                        horizontalBars: false,
+                        seriesBarDistance: 15
+                    }]
+                ]);
+            }
+            var labelPlacementChart = function() {
+                //Label placement
+
+                new Chartist.Bar('#label-placement-chart', {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    series: [
+                        [5, 4, 3, 7, 5, 10, 3],
+                        [3, 2, 9, 5, 4, 6, 4]
+                    ]
+                }, {
+                    axisX: {
+                        // On the x-axis start means top and end means bottom
+                        position: 'start'
+                    },
+                    axisY: {
+                        // On the y-axis start means left and end means right
+                        position: 'end'
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+            }
+            var animatingDonutChart = function() {
+                //Animating a Donut with Svg.animate
+
+                var chart = new Chartist.Pie('#animating-donut', {
+                    series: [10, 20, 50, 20, 5, 50, 15],
+                    labels: [1, 2, 3, 4, 5, 6, 7]
+                }, {
+                    donut: true,
+                    showLabel: false,
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+                chart.on('draw', function(data) {
+                    if (data.type === 'slice') {
+
+                        var pathLength = data.element._node.getTotalLength();
+
+
+                        data.element.attr({
+                            'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+                        });
+
+
+                        var animationDefinition = {
+                            'stroke-dashoffset': {
+                                id: 'anim' + data.index,
+                                dur: 1000,
+                                from: -pathLength + 'px',
+                                to: '0px',
+                                easing: Chartist.Svg.Easing.easeOutQuint,
+                                // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                                fill: 'freeze'
+                            }
+                        };
+
+                        // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+                        if (data.index !== 0) {
+                            animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+                        }
+
+                        // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+                        data.element.attr({
+                            'stroke-dashoffset': -pathLength + 'px'
+                        });
+
+                        // We can't use guided mode as the animations need to rely on setting begin manually
+                        // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+                        data.element.animate(animationDefinition, false);
+                    }
+                });
+
+                // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+                chart.on('created', function() {
+                    if (window.__anim21278907124) {
+                        clearTimeout(window.__anim21278907124);
+                        window.__anim21278907124 = null;
+                    }
+                    window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
+                });
+
+            }
+            var simplePieChart = function() {
+                //Simple pie chart
+
+                var data1 = {
+                    series: [5, 3, 4]
+                };
+
+                var sum = function(a, b) { return a + b };
+
+                new Chartist.Pie('#simple-pie', data1, {
+                    labelInterpolationFnc: function(value) {
+                        return Math.round(value / data1.series.reduce(sum) * 100) + '%';
+                    }
+                });
+
+            }
+            var pieChart = function() {
+                //Pie chart with custom labels
+
+                var data = {
+                    labels: ['35%', '55%', '10%'],
+                    series: [20, 15, 40]
+                };
+
+                var options = {
+                    labelInterpolationFnc: function(value) {
+                        return value[0]
+                    }
+                };
+
+                var responsiveOptions = [
+                    ['screen and (min-width: 640px)', {
+                        chartPadding: 30,
+                        donut: true,
+                        labelOffset: 100,
+                        donutWidth: 60,
+                        labelDirection: 'explode',
+                        labelInterpolationFnc: function(value) {
+                            return value;
+                        }
+                    }],
+                    ['screen and (min-width: 1024px)', {
+                        labelOffset: 60,
+                        chartPadding: 20
+                    }]
+                ];
+
+                new Chartist.Pie('#pie-chart', data, options, responsiveOptions);
+
+            }
+            var gaugeChart = function() {
+                //Gauge chart
+
+                new Chartist.Pie('#gauge-chart', {
+                    series: [20, 10, 30, 40]
+                }, {
+                    donut: true,
+                    donutWidth: 60,
+                    startAngle: 270,
+                    total: 200,
+                    showLabel: false,
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+            }
+            var differentSeriesChart = function() {
+                // Different configuration for different series
+
+                var chart = new Chartist.Line('#different-series', {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
+                    // Naming the series with the series object array notation
+                    series: [{
+                        name: 'series-1',
+                        data: [5, 2, -4, 2, 0, -2, 5, -3]
+                    }, {
+                        name: 'series-2',
+                        data: [4, 3, 5, 3, 1, 3, 6, 4]
+                    }, {
+                        name: 'series-3',
+                        data: [2, 4, 3, 1, 4, 5, 3, 2]
+                    }]
+                }, {
+                    fullWidth: true,
+                    // Within the series options you can use the series names
+                    // to specify configuration that will only be used for the
+                    // specific series.
+                    series: {
+                        'series-1': {
+                            lineSmooth: Chartist.Interpolation.step()
+                        },
+                        'series-2': {
+                            lineSmooth: Chartist.Interpolation.simple(),
+                            showArea: true
+                        },
+                        'series-3': {
+                            showPoint: false
+                        }
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                }, [
+                    // You can even use responsive configuration overrides to
+                    // customize your series configuration even further!
+                    ['screen and (max-width: 320px)', {
+                        series: {
+                            'series-1': {
+                                lineSmooth: Chartist.Interpolation.none()
+                            },
+                            'series-2': {
+                                lineSmooth: Chartist.Interpolation.none(),
+                                showArea: false
+                            },
+                            'series-3': {
+                                lineSmooth: Chartist.Interpolation.none(),
+                                showPoint: true
+                            }
+                        }
+                    }]
+                ]);
+
+            }
+            var svgDotAnimationChart = function() {
+                //SVG Animations chart
+
+                var chart = new Chartist.Line('#svg-dot-animation', {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    series: [
+                        [12, 4, 2, 8, 5, 4, 6, 2, 3, 3, 4, 6],
+                        [4, 8, 9, 3, 7, 2, 10, 5, 8, 1, 7, 10]
+                    ]
+                }, {
+                    low: 0,
+                    showLine: false,
+                    axisX: {
+                        showLabel: false,
+                        offset: 0
+                    },
+                    axisY: {
+                        showLabel: false,
+                        offset: 0
+                    },
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                });
+
+                // Let's put a sequence number aside so we can use it in the event callbacks
+                var seq = 0;
+
+                // Once the chart is fully created we reset the sequence
+                chart.on('created', function() {
+                    seq = 0;
+                });
+
+                // On each drawn element by Chartist we use the Chartist.Svg API to trigger SMIL animations
+                chart.on('draw', function(data) {
+                    if (data.type === 'point') {
+                        // If the drawn element is a line we do a simple opacity fade in. This could also be achieved using CSS3 animations.
+                        data.element.animate({
+                            opacity: {
+                                // The delay when we like to start the animation
+                                begin: seq++ * 80,
+                                // Duration of the animation
+                                dur: 500,
+                                // The value where the animation should start
+                                from: 0,
+                                // The value where it should end
+                                to: 1
+                            },
+                            x1: {
+                                begin: seq++ * 80,
+                                dur: 500,
+                                from: data.x - 100,
+                                to: data.x,
+                                // You can specify an easing function name or use easing functions from Chartist.Svg.Easing directly
+                                easing: Chartist.Svg.Easing.easeOutQuart
+                            }
+                        });
+                    }
+                });
+
+                // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+                chart.on('created', function() {
+                    if (window.__anim0987432598723) {
+                        clearTimeout(window.__anim0987432598723);
+                        window.__anim0987432598723 = null;
+                    }
+                    window.__anim0987432598723 = setTimeout(chart.update.bind(chart), 8000);
+                });
+            }
+
+            /* Function ============ */
+            return {
+                init: function() {
+                },
+
+
+                load: function() {
+                    setChartWidth();
+                    lineAnimatedChart();
+                    scatterChart();
+                    simpleLineChart();
+                    lineTooltipsChart();
+                    withAreaChart();
+                    biPolarLineChart();
+                    svgAnimationChart();
+                    lineSmoothingChart();
+                    biPolarBarChart();
+                    overlappingBarsChart();
+                    multiLineChart();
+                    stackedBarChart();
+                    horizontalBarChart();
+                    extremeChart();
+                    labelPlacementChart();
+                    animatingDonutChart();
+                    simplePieChart();
+                    pieChart();
+                    gaugeChart();
+                    differentSeriesChart();
+                    svgDotAnimationChart();
+                },
+
+                resize: function() {
+                    setChartWidth();
+                    lineAnimatedChart();
+                    scatterChart();
+                    simpleLineChart();
+                    lineTooltipsChart();
+                    withAreaChart();
+                    biPolarLineChart();
+                    svgAnimationChart();
+                    lineSmoothingChart();
+                    biPolarBarChart();
+                    overlappingBarsChart();
+                    multiLineChart();
+                    stackedBarChart();
+                    horizontalBarChart();
+                    extremeChart();
+                    labelPlacementChart();
+                    animatingDonutChart();
+                    simplePieChart();
+                    pieChart();
+                    gaugeChart();
+                    differentSeriesChart();
+                    svgDotAnimationChart();
+                }
+            }
+
+        }();
+
+        jQuery(document).ready(function() {
+        });
+
+        jQuery(window).on('load', function() {
+            setTimeout(function() {
+                dlabChartlist.resize();
+            }, 1000);
+        });
+
+        jQuery(window).on('resize', function() {
+            setTimeout(function() {
+                dlabChartlist.resize();
+            }, 1000);
+
+        });
+
+    })(jQuery);
+
+
+</script>

@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Calender";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div id="calendar"></div>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                height: 750,
+                contentHeight: 750,
+                eventBackgroundColor: "#0328fc",
+                eventBorderColor: "#0328fc",
+                theme: false,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                defaultView: 'listWeek',
+                editable: false,
+                events: "/Project/Calendar2",
+                slotEventOverlap: false,
+                prev: 'left-single-arrow',
+                next: 'right-single-arrow',
+                prevYear: 'left-double-arrow',
+                nextYear: 'right-double-arrow'
+            });
+        });
+    </script>
+}

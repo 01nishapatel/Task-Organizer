@@ -1,0 +1,65 @@
+Sign up -> user details -> new project -> Add Task ->Add team Members(Skip) -> project (All Project list)
+
+			or
+
+Login -> project (All Project List)
+---------------------------------------------------------------------------------------------------------------------
+Admin:
+
+Project Tab() ->>
+
+* Project (list of Project) -> view -> project Details(Edit,Delete,save)
+* Create Project -> New project ->Add task -> Add team Members->project(All Project List)
+
+* New User -> Add new user Form(Email,projectName)
+* User Profile -> User Details(Edit Formate)
+* Task -> Add task
+-> * Message (Message form)
+->* Task -> Add task -> Assign Project Task Main to Team Leader
+
+---------------------------------------------------------------------------------------------------------------------
+
+Project Manager:
+
+Project Tab(Your Task,Board,DashBoard) ->>
+
+-> * yourTask->Project (list of Project) -> view -> project Details
+-> * Board (Kanban Mode PM Task)->Add Task(Task Form)(Task edit,delete)(Click task show Task Data in edit form)->Add Section(Name)(Edit ,Delete section)
+	(Search ,Filter)
+-> * DashBoard (User data in chart form)
+-> * Message (Message form)
+
+* New User Tab -> Add new user Form(Email,projectName)
+* User Profile -> User Details(Edit Formate)
+* Task -> Add task -> Assign Project Task Main to Team Leader
+
+---------------------------------------------------------------------------------------------------------------------
+
+Team Leader:
+
+Project Tab(Your Task,Board,DashBoard) ->>
+
+-> * Project (list of Project) -> view -> project Details 
+-> * Board (Kanban Mode TL Task)->Add Task(Task Form)(Task edit,delete)(Click task show Task Data in edit form)->Add Section(Name)(Edit ,Delete section)
+	(Search ,Filter)
+-> * DashBoard (User data in chart form)
+
+* New User Tab -> Add new user Form(Email,projectName)
+* User Profile -> User Details(Edit Formate)
+* Task -> Add task -> Assign Project sub Task to Developer
+
+---------------------------------------------------------------------------------------------------------------------
+
+Developer :
+
+Project Tab(Your Task,Board,DashBoard) ->>
+
+-> * Project (list of Project) -> view -> project Details
+-> * Board (Kanban Mode Developer Task)- Task(Click task show Task Data)
+	(Search ,Filter)
+-> * DashBoard (User data in chart form)
+
+* User Profile -> User Details(Edit Formate)
+
+Pending Pages:
+->

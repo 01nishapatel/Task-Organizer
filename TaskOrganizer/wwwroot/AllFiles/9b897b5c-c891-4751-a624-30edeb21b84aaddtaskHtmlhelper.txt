@@ -1,0 +1,113 @@
+<form>
+
+
+                                            <div class="form-group mb-3">
+                                                <br /> <label for="taskname1" asp-for="TaskTitle" class="mb-1"><strong>Task Name</strong></label>
+                                                @*<input type="text" asp-for="TaskTitle" class="form-control" id="taskname1" placeholder="name of task">*@
+                                                @Html.TextBoxFor(m=>m.TaskTitle,new {@class="form-control",placeholder="Task Name"})
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector1" asp-for="AssigneeID"><strong>Assignee</strong></label>
+                                                @*<input type="text" class="form-control" asp-for="AssigneeID" placeholder="name of Assignee">*@
+                                                @*<select name="selector1" asp-for="AssigneeId" id="selector1" class="form-control wide mb-3"></select>*@
+                                                @Html.TextBoxFor(m=>m.AssigneeID,new {@class="form-control",id="selector1",placeholder="name of Assignee"})
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector2" asp-for="ProjectID"><strong>Project</strong></label>
+                                                @*<input type="text" class="form-control" asp-for="ProjectID" placeholder="name of Project">*@
+                                                @*<select name="selector2" id="selector2" class="form-control">
+                                                </select>*@
+                                                @Html.TextBoxFor(m=>m.ProjectID,new {@class="form-control",id="selector2",placeholder="name of Project"})
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector3" asp-for="ReporterID"><strong>Reporter</strong></label><br />
+                                                @*<input type="text" class="form-control" asp-for="ReporterID" placeholder="name of Reporter">*@
+                                                @*<select name="selector3" id="selector3" class="form-control"></select>*@
+                                                @Html.TextBoxFor(m=>m.ReporterID,new {@class="form-control",id="selector3",placeholder="name of Reporter"})
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector3" asp-for="TaskType"><strong>Type</strong></label><br />
+                                                @*<input type="text" class="form-control" asp-for="TaskType">*@
+                                                @*<select name="selector3" id="selector3" asp-for="TaskType" asp-items="Html.GetEnumSelectList<TaskType>()" class="form-control"></select>*@
+                                                @*@Html.TextBoxFor(m=>m.TaskType,new {@class="form-control",id="selector3",placeholder="name of Reporter"})*@
+                                                @Html.DropDownListFor(m=>m.TaskType,new SelectList(Enum.GetValues(typeof(Database.TaskType))),"Select Type",new {@class="form-control"})
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector4"><strong>Priority</strong></label>
+                                                @*<input type="text" class="form-control" asp-for="Priority">*@
+                                                @*<select name="selector4" id="selector4" asp-for="Priority" asp-items="Html.GetEnumSelectList<Priority>()" class="form-control"></select>*@
+                                                @*@Html.TextBoxFor(m=>m.Priority,new {@class="form-control wide mb-3",id="selector1",placeholder="name of Assignee"})*@
+                                                @Html.DropDownListFor(m=>m.Priority,new SelectList(Enum.GetValues(typeof(Database.Priority))),"Select Status",new {@class="form-control"})
+
+                                                @*@Html.DropDownListFor(m => m.userType, new SelectList(Enum.GetValues(typeof(Database.UserType))), "Select User")*@
+                                                @*<input type="text" class="form-control" id="Priority" placeholder="Priority">*@
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label for="selector5" asp-for="Status"><strong>Status</strong></label>
+
+                                                @*<select name="selector5" id="selector5" class="form-control" asp-for="Status" asp-items="Html.GetEnumSelectList<Status>()"></select>*@
+                                                @*<input type="text" class="form-control" id="Status" placeholder="Status">*@
+                                                @Html.DropDownListFor(m=>m.Status,new SelectList(Enum.GetValues(typeof(Database.Status))),"Select Priority",new {@class="form-control"})
+                                                @*@Html.TextBoxFor(m=>m.Status,new {@class="form-control"})*@
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label for="Description" asp-for="Description"><strong>Description</strong></label><br />
+                                                @*<input type="text" class="form-control" asp-for="Description">*@
+                                                @*<textarea class="form-control" asp-for="Description"></textarea>*@
+                                                @*<div class="row">
+                                                <div class="card-body custom-ekeditor">
+                                                <div id="ckeditor"></div>
+                                                </div>
+                                                </div>*@
+                                                @Html.TextBoxFor(m=>m.Description,new {@class="form-control"})
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="DueDate" asp-for="StartDate"><strong>Start Date</strong></label>
+                                                @*<input type="date" asp-for="StartDate" class="form-control" id="EndDate">*@
+                                                @Html.TextBoxFor(m=>m.StartDate,new {@class="form-control" , Type="Date"})
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="DueDate" asp-for="EndDate"><strong>End Date</strong></label>
+                                                @*<input type="date" asp-for="EndDate" class="form-control" id="EndDate">*@
+                                                @Html.TextBoxFor(m=>m.EndDate,new {@class="form-control", type="Date"})
+                                            </div>
+                                            <br />
+
+                                            @*<div onclick="location.href = '@Url.Action("Index","Home")'" class="form-group icon-box" style="font-size:larger;">*@
+                                            @* <div class="form-group icon-box" style="font-size:larger;">*@
+                                            @*<input type="text" class="form-control" asp-for="AttachmentID">*@
+                                            @*@Html.TextBoxFor(m=>m.AttachmentID,new {@class="form-control"})*@
+                                            @*<a class="agile-icon" href="#paperclip">
+                                            <i class="fa fa-paperclip"></i>Attachment
+                                            </a>*@
+                                            <div class="form-group icon-box" style="font-size:larger;">
+                                                <a class="agile-icon" onclick="document.getElementById('getfile').click()">
+                                                    <i class="fa fa-paperclip"></i><input asp-for="AttachmentID" type="file" style="display:none" id="getfile" />Attachment
+                                                </a>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <button type="submit" class="btn btn-primary" data-save="modal">Create</button>
+                                                    @*<button type="submit" class="btn btn-primary">Create</button>*@
+                                                </div>
+                                                <div class="col-3">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '@Url.Action("Board","Project")'">Cancel</button>
+                                                    @*<button type="submit" class="btn btn-primary" onclick="location.href = '@Url.Action("Board","Project")'">Cancel</button>*@
+                                                </div>
+                                            </div>
+
+                                        </form>

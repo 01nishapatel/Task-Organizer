@@ -1,0 +1,190 @@
+﻿@using Database
+@model TaskOrganizer.ViewModel.TaskUserViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+
+<html lang="en">
+<head>
+    <link href="~/Contents/css/style.css" rel="stylesheet" />
+    <link href="~/Contents/js/plugins-init" />
+    <link href="~/Contents/form-element.html" />
+    <link href="~/Contents/page-login.html" />
+    <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/Contents/vendor/toastr/css/toastr.min.css" />
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+
+        .input-validation-error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body class="vh-100">
+    <form asp-action="AddTask" id="addtask" enctype="multipart/form-data">
+        <div class="authincation h-200">
+            <div class="container h-200">
+                <div class="row justify-content-center h-300 align-items-center">
+                    <div class="col-md-8">
+                        <div class="authincation-content">
+                            <div class="row no-gutters">
+                                <div class="col-xl-20">
+                                    <div class="auth-form">
+                                        <div class="card-header">
+                                            <div class="page-titles card-title">
+                                                <div class="card-title--large text-dark" style="font-palette:dark;font-size:xx-large;">
+                                                    <div class="row">
+                                                        <ol class="breadcrumb">
+                                                            <li class="breadcrumb-item "><h1>Add Task</h1></li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group success callout fa text-right col-lg-1">                                               
+                                                <button type="button" class="btn-close text-left" onclick="location.href = '@Url.Action("AllProject","Project")'"></button>                                               
+                                            </div>
+                                        </div>
+                                        <br />
+                                        
+                                        <div class="form-body">                                            
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.TaskTitle" class="mb-1"><strong>Task Name</strong></label>
+                                                <input type="text" asp-for="task.TaskTitle" class="form-control" id="taskname1" placeholder="name of task">
+                                                <span asp-validation-for="task.TaskTitle"></span>
+                                            </div>
+                                           
+                                            <input type="hidden" class="form-control" asp-for="task.AssigneeID" value="@HttpContextAccessor.HttpContext.Session.GetInt32("UserId")" placeholder="name of Assignee">
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.ProjectID"><strong>Project</strong></label>
+                                                <select class="form-control" id="project_id" asp-for="task.ProjectID" asp-items="Model.ProjectList" onchange="getUserList()">
+                                                    <option value=""> Select Any Project</option>
+                                                </select>
+                                                <span asp-validation-for="task.ProjectID"></span>
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+
+
+                                                <label asp-for="task.UserId"><strong>User</strong></label><br />
+                                                <select class="form-control" id='user_detail' asp-for="task.UserId" asp-items="Model.UserList">
+                                                    <option value="Select Any User"></option>
+                                                </select>
+                                                <span asp-validation-for="task.UserId"></span>                                               
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.TaskType"><strong>Type</strong></label><br />                                                
+                                                <select class="form-control" asp-for="task.TaskType" asp-items="Html.GetEnumSelectList<TaskType>()">
+                                                    <option value=""> Select Task Type</option>
+                                                </select>
+                                                <span asp-validation-for="task.TaskType"></span>                                               
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.Priority"><strong>Priority</strong></label>
+                                                <select asp-for="task.Priority" class="form-control" asp-items="Html.GetEnumSelectList<Priority>()">
+                                                    <option value="">Select Task Priority</option>
+                                                </select>
+                                                <span asp-validation-for="task.TaskType"></span>                                                
+                                            </div>
+                                            
+                                            <select hidden class="form-control" asp-for="task.Status" asp-items="Html.GetEnumSelectList<Status>()">
+                                                <option hidden value="@Database.Status.Pending"></option>
+                                            </select>
+                                         
+
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.Description"><strong>Description</strong></label><br />
+                                                <textarea class="form-control" asp-for="task.Description"></textarea>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.StartDate"><strong>Start Date</strong></label>
+                                                <input type="date" asp-for="task.StartDate" class="form-control" id="EndDate">
+                                                <span asp-validation-for="task.StartDate"></span>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label asp-for="task.EndDate"><strong>End Date</strong></label>
+                                                <input type="date" asp-for="task.EndDate" class="form-control" id="EndDate">
+                                                <span asp-validation-for="task.EndDate" oninvalid="isValidDate"></span>
+                                            </div>
+
+
+                                            <div class="form-group icon-box mb-4" style="font-size:larger;">
+                                                <a class="agile-icon" onclick="document.getElementById('getfile').click()">
+
+                                                    <i class="fa fa-paperclip"></i><input asp-for="Attachments" style="display:none" id="getfile" />Attachment
+                                                </a>
+
+                                                <input asp-for="attach.AttachmentType" type="hidden" />
+                                                <input asp-for="attach.Attachments" type="hidden" />
+                                                <input asp-for="attach.FilePath" type="hidden" />
+
+                                                <input asp-for="task.AttachmentID" type="hidden" />
+                                            </div>
+
+                                            <div class="form-group mb-3" align="center">
+                                                
+                                                <button type="submit" class="btn btn-primary mb-2 me-2">Create</button>                                                
+
+                                                <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("AllProject","Project")'">Cancel</button>
+                                                
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+
+    <script src="~/Contents/vendor/global/global.min.js"></script>
+
+    <script src="~/Contents/vendor/toastr/js/toastr.min.js"></script>
+
+    <script src="~/Contents/js/plugins-init/toastr-init.js"></script>
+
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/dlabnav-init.js"></script>
+    <script src="~/Contents/js/styleSwitcher.js"></script>
+    <script src="~/Contents/vendor/ckeditor/ckeditor.js"></script>
+    <script src="~/Contents/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+    <script>       
+        function getUserList() {
+            var ID = $("#project_id").val();
+            $.get(window.location.origin + "/Task/GetUserbyProductId?ProjectId=" + parseInt(ID), null, bindData);
+        }
+        function bindData(response) {
+            var userListDetail = document.getElementById('user_detail');
+            userListDetail.innerHTML = '';
+            var option = "";
+            for (var i in response) {
+                userListDetail.innerHTML += "<option value=\"" + response[i].userId + "\">" + response[i].userName + "</option>"
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+﻿@model Database.User
+@using Database
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using (Html.BeginForm("Register", "Account"))
+{
+    <!DOCTYPE html>
+    <html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:title" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- PAGE TITLE HERE -->
+        <title>Workload Project Management</title>
+        <style>
+            .field-validation-error {
+                color: red;
+            }
+        </style>
+        <!-- FAVICONS ICON -->
+        <link rel="shortcut icon" type="image/svg" href="~/Contents/images/favicon.png" />
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+
+        <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+        <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+        <link rel="stylesheet" href="~/Contents/vendor/nouislider/nouislider.min.css">
+        <!-- Style css -->
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+
+
+
+
+
+
+    </head>
+
+    <body class="vh-100">
+        <div class="form-validation">
+            <div class="authincation h-200">
+                <div class="container h-200">
+                    <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-6">
+                            <div class="authincation-content">
+                                <div class="row no-gutters">
+                                    <div class="col-xl-20">
+                                        <div class="auth-form">
+                                            <div class="text-center mb-3">
+                                                <a href="index.html"><img src="images/logo-full.png" alt=""></a>
+                                            </div>
+                                            <h4 class="text-center mb-4">Register User</h4>
+
+                                            <form action="index.html">
+
+
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>Email ID:</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.EmailID, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.EmailID)
+
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>Password</strong></label>
+
+                                                    @Html.PasswordFor(m => m.Password, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Password)
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>User name</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.UserName, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.UserName)
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>Full name</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.FullName, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.FullName)
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>Date</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.JoinDate, new {@class = "form-control" , type="date"})
+                                                    @Html.ValidationMessageFor(m => m.JoinDate)
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>ContactNo</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.ContactNo, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.ContactNo)
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-1" asp-for="Gender"><strong>Select Gender</strong></label><br />
+                                                    <select name="gender" id="gender" class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<TaskOrganizer.Models.Gender>()"></select>
+                                                    <span asp-validation-for="Gender" class="text-danger"></span>
+
+
+
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="mb-1"><strong>Address</strong></label>
+
+                                                    @Html.TextBoxFor(m => m.Address, new {@class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Address)
+
+                                                </div>
+
+                                                <div class="mb-3">
+
+
+
+
+                                                    @Html.EditorFor(m => m.IsAdmin) <strong>IsAdmin ?</strong>
+                                                </div>
+
+
+                                                <div class="text-center mt-4">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+                                                    <input type="button" name="backButton" value="Cancel" class=" btn btn-primary" onclick="location.href = '@Url.Action("AllProject","Project")'" />
+
+
+
+
+
+                                                    <button type="reset" class="btn btn-primary" onclick="location.href = '@Url.Action("Register","Account")'">
+                                                        Reset
+
+                                                    </button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <!-- Required vendors -->
+        <script src="~/Contents/vendor/global/global.min.js"></script>
+        <script src="~/Contents/js/custom.min.js"></script>
+        <script src="~/Contents/js/dlabnav-init.js"></script>
+        <script src="~/Contents/js/styleSwitcher.js"></script>
+        <script src="~/Contents/js/custom.min.js"></script>
+        <script src="~/Contents/js/jquery.validate.min.js"></script>
+        <script src="~/Contents/js/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+    </body>
+    </html>
+}

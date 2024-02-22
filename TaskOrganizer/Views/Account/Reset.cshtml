@@ -1,0 +1,140 @@
+﻿@model Database.User
+@using Database
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+@using (Html.BeginForm("Reset", "Account", FormMethod.Post))
+{
+    <!DOCTYPE html>
+    <html lang="en" class="h-100">
+
+
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:title" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- PAGE TITLE HERE -->
+        <title>Task Organizer</title>
+        <style>
+            .field-validation-error {
+                color: red;
+            }
+        </style>
+        <!-- FAVICONS ICON -->
+        <link rel="shortcut icon" type="image/svg" href="~/Contents/images/favicon.png" />
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+
+        <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+        <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+        <link rel="stylesheet" href="~/Contents/vendor/nouislider/nouislider.min.css">
+        <!-- Style css -->
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+    </head>
+
+    <body class="vh-100">
+        <div class="form-validation">
+            <div class="authincation h-200">
+                <div class="container h-200">
+                    <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-6">
+                            <div class="authincation-content">
+                                <div class="row no-gutters">
+                                    <div class="col-xl-20">
+                                        <div class="auth-form">
+                                            <div class="text-center mb-3">
+                                                <a href="index.html"><img src="images/logo-full.png" alt=""></a>
+                                            </div>
+                                            <h4 class="text-center mb-4"> Reset Passsword </h4>
+
+                                            <form action="index.html">
+                                                <div class="mb-1">
+                                                    <p> Enter your password reset code which was emailed to you, and your new password..</p>
+                                                </div>
+                                                <br />
+                                                <div class="mb-3">
+                                                    <label class="mb-1">EMail ID :</label>
+                                                    <input type="email" id="email" class="form-control form-control-user" value=@HttpContextAccessor.HttpContext.Session.GetString("UserEmailId") readonly />
+                                                </div>
+
+
+
+                                                <div class="mb-3">
+                                                    <label class="mb-1">Reset Password Code : </label>
+
+
+
+
+                                                    @Html.TextBox("resetcode",null,new {@class= "form-control"})
+
+
+                                                </div>
+
+
+
+                                                <div class="mb-3">
+                                                    <label class="mb-1">New Password : </label>
+
+
+                                                    @Html.PasswordFor(m => m.Password, new {@class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(m => m.Password)
+
+
+
+                                                </div>
+                                                <p class="text-danger">@ViewBag.ErrorMessage</p>
+                                                <p class="text-danger">@ViewBag.message</p>
+
+
+                                                <div class="row d-flex justify-content-between mt-4 mb-2">
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+
+
+
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="~/Contents/vendor/global/global.min.js"></script>
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/dlabnav-init.js"></script>
+    <script src="~/Contents/js/styleSwitcher.js"></script>
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.unobtrusive.min.js"></script>
+
+
+}

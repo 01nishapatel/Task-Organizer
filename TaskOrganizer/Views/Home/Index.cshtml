@@ -1,0 +1,385 @@
+﻿<!DOCTYmaskml>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:title" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- PAGE TITLE HERE -->
+    <title>Task Organizer</title>
+
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/svg" href="" />
+
+
+    <link rel="shortcut icon" type="image/png" href="~/Contents/images/favicon.ico" />
+    <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Contents/vendor/nouislider/nouislider.min.css">
+
+
+    <!-- Style css -->
+    <link href="~/Contents/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div class="nav-header">
+        <a href="Index" class="brand-logo">
+            <svg class="logo-abbr" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect class="react-logo" width="60" height="60" rx="30" fill="#00A15D" />
+                <mask id="mask0" style="mask:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="60" height="60">
+                    <rect class="react-logo" width="60" height="60" rx="30" fill="#00A15D" />
+                </mask>
+                <g mask="url(#mask0)">
+                    <path d="M130 51.3929L126.5 45.2109C123 38.9626 116 26.6981 109 23.1017C102 19.5715 95 24.875 88 29.3002C81 33.6591 74 37.3053 67 39.0124C60 40.7857 53 40.7857 46 36.3606C39 32.0017 32 23.0519 25 17.7981C18 12.4448 11 10.7874 4 16.9197C-3 23.0519 -10 37.3053 -17 40.7857C-24 44.2662 -31 37.3053 -34.5 33.7088L-38 30.1786V62H-34.5C-31 62 -24 62 -17 62C-10 62 -3 62 4 62C11 62 18 62 25 62C32 62 39 62 46 62C53 62 60 62 67 62C74 62 81 62 88 62C95 62 102 62 109 62C116 62 123 62 126.5 62H130V51.3929Z" fill="url(#paint0_linear)" />
+                    <path d="M-54 55.7741L-50.5 50.9799C-47 46.1343 -40 36.623 -33 33.8339C-26 31.0962 -19 35.2092 -12 38.641C-5 42.0213 2 44.849 9 46.1728C16 47.5481 23 47.5481 30 44.1164C37 40.736 44 33.7954 51 29.721C58 25.5694 65 24.2841 72 29.0398C79 33.7954 86 44.849 93 47.5481C100 50.2473 107 44.849 110.5 42.0599L114 39.3222V64H110.5C107 64 100 64 93 64C86 64 79 64 72 64C65 64 58 64 51 64C44 64 37 64 30 64C23 64 16 64 9 64C2 64 -5 64 -12 64C-19 64 -26 64 -33 64C-40 64 -47 64 -50.5 64H-54V55.7741Z" fill="url(#paint1_linear)" />
+                </g>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="46" y1="13" x2="46" y2="62" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#23D58A" />
+                        <stop offset="1" stop-color="#00A15D" />
+                    </linearGradient>
+                    <linearGradient id="paint1_linear" x1="30" y1="26" x2="30" y2="64" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#FFED4B" />
+                        <stop offset="1" stop-color="#FF8C4B" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <div class="brand-title">
+                <h2 class="title"><span>Task</span>Organizer</h2>
+                <span class="brand-sub-title">Arrange Ur Task</span>
+            </div>
+        </a>
+    </div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+    <!--**********************************
+        Header start
+    ***********************************-->
+
+    <div class="header border-bottom">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="dashboard_bar">
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item">
+                                <a style="font-size:x-large" class="nav-link scrollto" href="#about">AboutUs</a>	<br />
+                            </li>
+                            <li class="nav-item">
+                                <a style="font-size:x-large" class="nav-link scrollto" href="#services">Services</a><br />
+                            </li>
+                            <li class="nav-item">
+                                <a style="font-size:x-large" class="nav-link" href="~/Account/Login">Login</a><br /><br />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div id="hero">
+        <div class="bootstrap-carousel">
+            <div data-bs-ride="carousel" class="carousel slide" id="carouselExampleCaptions">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100 h-80" src="~/Contents/MyImg/HomeTask2.png" alt="" style="height:fit-content">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4 style="font-size:large;color:white">Welcome to TaskOrganizer</h4>
+                            <p>The only task tool you need for task management and lists</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img alt="" class="d-block w-100 h-80" src="~/Contents/MyImg/Home2.png" alt="" style="height:fit-content">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4 style="font-size:large;color:white">Welcome to TaskOrganizer</h4>
+                            <p>The only task tool you need for task management and lists</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img alt="" class="d-block w-100 h-80" src="~/Contents/MyImg/Home3.webp" alt="" style="height:fit-content">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4 style="font-size:large;color:white">Welcome to TaskOrganizer</h4>
+                            <p>The only task tool you need for task management and lists</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+    <!-- ======= About Section ======= -->
+
+
+    <div id="about" class="about-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-headline text-center">
+                        <h1>About TaskOrganizer</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div><br />
+            <div class="row">
+
+                <div class="col-xl-6">
+                    <div class="card">
+                        <img class="active" src="~/Contents/MyImg/HomePage.jpg" alt="img">
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card-hidden">
+                        <a href="#">
+                            <h2 class="sec-head">What Does Task Management System Do?</h2>
+                        </a>
+
+                        <p style="font-size:19px">
+                            It means tracking tasks from beginning to end, delegating subtasks to teammates, and setting deadlines to make sure projects get done on time.
+                        </p>
+                        <ul style="font-size:16px">
+                            <li>
+                                <i class="bi bi-check"></i> Manage Everything from A Single Place.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Make Task Prioritization Easier.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Access Data from Anywhere Anytime.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Keep an Eye across All Tasks.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Make Task Delegation Easy.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Improve Team Collaboration.
+                            </li>
+                            <li>
+                                <i class="bi bi-check"></i> Track Time Spent On Projects.
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- End col-->
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+    <!-- ======= Services Section ======= -->
+    <div class="card justify-content-between align-items-center" style="height:auto">
+        <div class="card-body" style="align-content:center">
+            <div id="services" class="services-area area-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="section-headline services-head text-center">
+                                <h1>Our Services</h1>
+                                <hr />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <!-- Start Left services -->
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="about-move">
+                                <div class="services-details">
+                                    <div class="single-services">
+                                        <a class="services-icon" href="#">
+                                            <i style="font-size:large" class="fas fa-briefcase"></i>
+                                        </a>
+                                        <h4>Make your work more efficient</h4>
+                                        <p>
+                                            Inefficiencies often stem from disinterest. Task management principles greatly improve productivity by making sure the right resources are utilized at the right time. This includes giving team members tasks and responsibilities that match their abilities and interests.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end about-details -->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="about-move">
+                                <div class="services-details">
+                                    <div class="single-services">
+                                        <a class="services-icon" href="#">
+                                            <i style="font-size:large" class="fas fa-laptop"></i>
+                                        </a>
+                                        <h4>Bring focus to your job</h4>
+                                        <p>
+                                            Whether you work as an individual or for an organization, all your tasks are done in order to achieve a particular goal. However we often end up doing things that distract from or don't contribute to this. If there's a systematic way to approach all your work items, your work will be more focused on the end goal.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end about-details -->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <!-- end col-md-4 -->
+                            <div class=" about-move">
+                                <div class="services-details">
+                                    <div class="single-services">
+                                        <a class="services-icon" href="#">
+                                            <i style="font-size:large" class="fas fa-building"></i>
+                                        </a>
+                                        <h4>Organize your organization</h4>
+                                        <p>
+                                            It's not always possible to work only on one task at a time. However, working on many things all at once can become chaotic. Organizing your tasks in a way that helps streamline your workflow goes a long way in becoming more efficient and reaching your target.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end about-details -->
+                            </div>
+                        </div>
+
+                        <div class="rounded-button btn-get-started justify-content-between align-items-center">
+                            <a href="#hero">
+                                <input type="button" class="btn btn-rounded btn-outline-info" value="Get Started">
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div><!-- End Services Section -->
+        </div>
+    </div>
+    <br />
+
+    <!-- ======= Footer ======= -->
+
+    <footer style="accent-color:inherit">
+        <div class="footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <div class="footer-logo">
+                                    <h2><span>Task</span>Organizer</h2>
+                                </div>
+
+                                <p>Task management is the process of monitoring your project's tasks through their various stages from start to finish. This involves actively making decisions for your tasks to accommodate changes that can occur real-time, with your end goal being the successful completion of your tasks.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-content" align="center">
+                            <div class="footer-head">
+
+                                <h3>Useful Links</h3>
+                                <ul>
+                                    <li><i class="bx bx-chevron-center"></i> <a href="#">Home</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="~/Account/Login">Login</a></li>
+                                </ul>
+                                <br />
+                                <div class="footer-icons" style="font-size:large">
+                                    <a href="#"><i class="bi bi-facebook"></i></a>
+                                    <a href="#"><i class="bi bi-twitter"></i></a>
+                                    <a href="#"><i class="bi bi-instagram"></i></a>
+                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+                    <div class="col-md-4">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <h3>Information</h3>
+                                <p>
+                                    This is information about Task Orgnizer
+                                </p>
+                                <div class="footer-contacts">
+                                    <p><span>Tel:</span> +123 456 789</p>
+                                    <p><span>Email:</span> taskorganizer128@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End  Footer -->
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="~/Contents/vendor/global/global.min.js"></script>
+    <script src="~/Contents/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+    <!-- Dashboard 1 -->
+    <script src="~/Contents/vendor/draggable/draggable.js"></script>
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/dlabnav-init.js"></script>
+
+</body>
+</html>

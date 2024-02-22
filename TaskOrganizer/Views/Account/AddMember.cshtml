@@ -1,0 +1,117 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Database
+@model TaskOrganizer.ViewModel.combinedModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using (Html.BeginForm("AddMember", "Account", FormMethod.Post))
+{
+    <!DOCTYPE html>
+    <html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:title" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+        <meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- PAGE TITLE HERE -->
+        <title>Task Organizer</title>
+        <style>
+            .field-validation-error {
+                color: red;
+            }
+
+            .input-validation-error {
+                border: 1px solid red;
+            }
+        </style>
+        <!-- FAVICONS ICON -->
+        <link rel="shortcut icon" type="image/svg" href="~/Contents/images/favicon.png" />
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+
+        <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+        <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+        <link rel="stylesheet" href="~/Contents/vendor/nouislider/nouislider.min.css">
+        <!-- Style css -->
+        <link href="~/Contents/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="~/Contents/vendor/select2/css/select2.min.css">
+    </head>
+
+    <body class="vh-100">
+        <div class="form-validation">
+            <div class="authincation h-200">
+                <div class="container h-200">
+                    <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-6">
+                            <div class="authincation-content">
+                                <div class="row no-gutters">
+                                    <div class="col-xl-20">
+                                        <div class="auth-form">
+                                            <div class="text-center mb-3">
+                                                <a href="index.html"><img src="images/logo-full.png" alt=""></a>
+                                            </div>
+                                            <h4 class="text-center mb-4">Add Member</h4>
+
+                                            <form asp-action="AddMember" asp-controller="Account">
+                                                <div class="mb-3">
+                                                    <label class="mb-1" asp-for="ProjectAssign.UserID"><strong>Email</strong></label>
+                                                    <select id="multi-select" data-placeholder="Select User" class="form-control" asp-for="ProjectAssign.UserID" asp-items="Model.ProjectAssignModel.emaillist">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <span asp-validation-for="ProjectAssign.UserID"></span>
+
+                                                </div>
+
+                                                <div>
+                                                    <label class="mb-1" asp-for="ProjectAssign.UserType"><strong>Role</strong></label>
+
+                                                    <select id="multi-select" class="form-control" asp-for="ProjectAssign.UserType" asp-items="Html.GetEnumSelectList<UserType>()">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <span asp-validation-for="ProjectAssign.UserType"></span>
+
+                                                </div>
+
+
+                                                <div class="text-center mt-4">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" class="btn btn-primary" onclick="location.href = '@Url.Action("AllMember","Account",new {id=@HttpContextAccessor.HttpContext.Session.GetInt32("projjid")},null)'">Cancel</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <!-- Required vendors -->
+        <script src="~/Contents/vendor/global/global.min.js"></script>
+        <script src="~/Contents/js/custom.min.js"></script>
+        <script src="~/Contents/js/dlabnav-init.js"></script>
+        <script src="~/Contents/js/styleSwitcher.js"></script>
+        <script src="~/Contents/js/custom.min.js"></script>
+        <script src="~/Contents/js/jquery.validate.min.js"></script>
+        <script src="~/Contents/js/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Contents/vendor/select2/js/select2.full.min.js"></script>
+        <script src="~/Contents/js/plugins-init/select2-init.js"></script>
+    </body>
+    </html>
+}

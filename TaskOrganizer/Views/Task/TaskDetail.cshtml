@@ -1,0 +1,251 @@
+﻿@using Database
+@model TaskOrganizer.ViewModel.TaskUserViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+<html lang="en">
+<head>
+    <link href="~/Contents/css/style.css" rel="stylesheet" />
+    <link href="~/Contents/js/plugins-init" />
+    <link href="~/Contents/form-element.html" />
+    <link href="~/Contents/page-login.html" />
+    <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+
+        .input-validation-error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body class="vh-100">
+    <form asp-action="TaskDetail" asp-controller="Task" method="post">
+        <div class="authincation h-200">
+            <div class="container h-200">
+                <div class="row justify-content-center h-300 align-items-center">
+                    <div class="col-md-8">
+                        <div class="authincation-content">
+                            <div class="row no-gutters">
+                                <div class="col-xl-20">
+                                    <div class="auth-form">
+                                        <div class="card-header">
+                                            <div class="page-titles card-title">
+                                                <div class="card-title--large text-dark" style="font-palette:dark;font-size:xx-large;">
+                                                    <div class="row">
+                                                        <ol class="breadcrumb">
+                                                            <li class="breadcrumb-item "><h1>Task Details</h1></li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group success callout fa text-right col-lg-1">
+
+                                                <button type="button" class="btn-close text-left" onclick="location.href = '@Url.Action("Board","Project",new {id=@HttpContextAccessor.HttpContext.Session.GetInt32("ProjId")},null)'"></button>
+
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        <div class="form-body">
+
+
+                                            <div class="form-group mb-3">
+                                                <input type="hidden" asp-for="task.TaskID" />
+                                                <label asp-for="task.TaskTitle" class="mb-1"><strong>Task Name</strong></label>
+                                                <input type="text" asp-for="task.TaskTitle" class="form-control" placeholder="name of task">
+                                                <span asp-validation-for="task.TaskTitle"></span>
+                                            </div>
+
+
+
+                                            <div class="form-group mb-3">
+
+                                                <label for="selector1" asp-for="UserName"><strong>Assignee</strong></label>
+                                                <input type="text" readonly class="form-control" asp-for="UserName" placeholder="name of Assignee">
+                                            </div>
+
+                                            <div class="form-group mb-3">
+
+                                                <input type="text" id="project_id" hidden class="form-control" asp-for="task.ProjectID">
+                                                <label asp-for="task.UserId"><strong>User</strong></label><br />
+                                                <select class="form-control" id='user_detail' asp-for="task.UserId" asp-items="Model.UserList">
+                                                    <option value=""></option>
+                                                </select>
+                                                <span asp-validation-for="task.UserId"></span>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.TaskType"><strong>Task Type</strong></label>
+                                                <select asp-for="task.TaskType" class="form-control" asp-items="Html.GetEnumSelectList<TaskType>()">
+                                                </select>
+
+                                                <span asp-validation-for="task.TaskType"></span>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.Priority"><strong>Priority</strong></label>
+                                                <select asp-for="task.Priority" class="form-control" asp-items="Html.GetEnumSelectList<Priority>()">
+                                                    <option value="">Select Task Priority</option>
+                                                </select>
+                                                <span asp-validation-for="task.TaskType"></span>
+
+
+                                            </div>
+
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.Status"><strong>Status</strong></label>
+                                                <select asp-for="task.Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()">
+                                                </select>
+                                            </div>
+
+
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.Description"><strong>Description</strong></label><br />
+                                                <textarea class="form-control" asp-for="task.Description"></textarea>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label asp-for="task.StartDate"><strong>Start Date</strong></label>
+                                                <input type="date" asp-for="task.StartDate" class="form-control" id="EndDate">
+                                                <span asp-validation-for="task.StartDate"></span>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label asp-for="task.EndDate"><strong>End Date</strong></label>
+                                                <input type="date" asp-for="task.EndDate" class="form-control" id="EndDate">
+                                                <span asp-validation-for="task.EndDate" oninvalid="isValidDate"></span>
+                                            </div>
+
+
+                                            <div class="form-group icon-box mb-4" style="font-size:larger;">
+                                                @if (@Model.attach != null)
+                                                {
+                                                    <p id="srcValue" hidden>/@Model.attach.FilePath</p>
+                                                    <span type="button" class="btn btn-primary" onclick='OpenAttachment()'>Attachment</span>
+                                                }
+
+                                            </div>
+
+                                            <div class="form-group mb-3" align="center">
+
+                                                <button type="submit" class="btn btn-primary mb-2 me-2">Update</button>
+
+                                                <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("Board","Project",new {id=@HttpContextAccessor.HttpContext.Session.GetInt32("ProjId")},null)'">Cancel</button>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="modal" id="ViewmoduleSCORM" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="max-width:1248px" role="document">
+            <div class="modal-content">
+                <form id="AddScrom">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Model_Header"></h5>
+
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal">
+                        </button>
+
+
+                    </div>
+                    <div class="modal-body p-0">
+                        <iframe class="embed-responsive-item" id="video_iframe"
+                                style="height:100%;min-height:620px;max-height:800px;width:100%;max-width:100%;border:0;background-color:white;"
+                                frameborder="0"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalSuccess" class="modal fade text-width:25% text-height:25%" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Information</h5>
+                    <button type="button" style="border:0;font-size:20px;color:gray" class="close" data-bs-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div id="MyModalSuccessAlertBody" class="modal-body">
+                    <p style="color:green">this is a modal body,our message will appear here.</p>
+                </div>
+
+                <div class="model-footer">
+                    &nbsp;
+                    <button type="button" align="center" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        window.onload = function getUserList() {
+            var ID = $("#project_id").val();
+            $.get(window.location.origin + "/Task/GetUserbyProductId?ProjectId=" + parseInt(ID), null, bindData);
+        }
+        function bindData(response) {
+            var userListDetail = document.getElementById('user_detail');
+            userListDetail.innerHTML = '';
+            var option = "";
+            for (var i in response) {
+                userListDetail.innerHTML += "<option value=\"" + response[i].userId + "\">" + response[i].userName + "</option>"
+            }
+        }
+
+        var AttachmentPath;
+
+        function OpenAttachment(URL) {
+            var sr = document.getElementById("srcValue");
+            AttachmentPath = window.location.origin + sr.innerHTML;
+            $("#ViewmoduleSCORM").modal('show');
+            $("#video_iframe").attr("src", window.location.origin + sr.innerHTML);
+            $("#Model_Header").text(name);
+        }
+    </script>
+    <script src="~/Contents/vendor/global/global.min.js"></script>
+
+    <script src="~/Contents/vendor/toastr/js/toastr.min.js"></script>
+
+    <script src="~/Contents/js/plugins-init/toastr-init.js"></script>
+
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/dlabnav-init.js"></script>
+    <script src="~/Contents/js/styleSwitcher.js"></script>
+    <script src="~/Contents/vendor/ckeditor/ckeditor.js"></script>
+    <script src="~/Contents/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.min.js"></script>
+    <script src="~/Contents/js/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+</body>
+</html>
+
+
+

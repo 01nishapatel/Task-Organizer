@@ -1,0 +1,621 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Tuple<Database.Project,IEnumerable<Database.Project>,IEnumerable<Database.Task>,IEnumerable<Database.User>,IEnumerable<Database.ProjectAssign>,Database.ProjectAssign>
+@{
+    ViewData["Title"] = "UserDashBoard";
+    Layout = "~/Pages/_Layout.cshtml";
+    bool isadmin = true;
+    int session = 0;
+}
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <h4 class="fs-32 font-w700">@Model.Item1.ProjectTitle        <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg3" class="fas fa-info-circle" style="font-size:large"></a></h4>
+                                <span class="mb-2 d-block">@Model.Item1.StartDate.GetValueOrDefault().ToString("D")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{
+            var userid = @HttpContextAccessor.HttpContext.Session.GetInt32("UserId");
+            foreach (var user in Model.Item4)
+            {
+                if (user.UserID == userid)
+                    isadmin = user.IsAdmin;
+            }
+        }
+        @{
+
+            @if (isadmin)
+            {
+                //AllMember
+                session = Convert.ToInt32(HttpContextAccessor.HttpContext.Session.GetInt32("projjid"));
+            }
+            else
+            {
+                //UserDashBoard
+                session = Convert.ToInt32(HttpContextAccessor.HttpContext.Session.GetInt32("ProjId"));
+            }
+        }
+
+        @{
+            var c1 = 0;
+            var c2 = 0;
+            var c3 = 0;
+            var c4 = 0;
+            var count = 0;
+            foreach (var task in Model.Item3)
+            {
+                @if (task.ProjectID == @Model.Item1.ProjectID)
+                {
+                    ViewData["passid"] = task.ProjectID;
+                    if (task.Status == Database.Status.Pending)
+                    {
+                        c1++;
+                    }
+                    if (task.Status == Database.Status.Inprogess)
+                    {
+                        c2++;
+                    }
+                    if (task.Status == Database.Status.Completed)
+                    {
+                        c3++;
+                    }
+                    if (task.Status == Database.Status.Reassigned)
+                        c4++;
+                }
+            }
+            count = c1 + c2 + c3 + c4;
+        }
+
+        @{
+            var count1 = 0;
+            var count2 = 0;
+            var count3 = 0;
+            var count4 = 0;
+
+            @foreach (var m in Model.Item3)
+            {
+                @if (m.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (@m.TaskType == Database.TaskType.Bug)
+                    {
+
+                        count1++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.Enhancement)
+                    {
+                        count2++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.Design)
+                    {
+                        count3++;
+                    }
+                    else if (@m.TaskType == Database.TaskType.QA)
+                        count4++;
+                }
+
+            }
+        }
+
+
+        @{
+
+            var b1 = 0;
+            var b2 = 0;
+            var b3 = 0;
+            var b4 = 0;
+            var e1 = 0;
+            var e2 = 0;
+            var e3 = 0;
+            var e4 = 0;
+            var d1 = 0;
+            var d2 = 0;
+            var d3 = 0;
+            var d4 = 0;
+            var q1 = 0;
+            var q2 = 0;
+            var q3 = 0;
+            var q4 = 0;
+
+            @foreach (var p in Model.Item3)
+            {
+                @if (p.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (@p.TaskType == Database.TaskType.Bug)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            b1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            b2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            b3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            b4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.Enhancement)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            e1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            e2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            e3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            e4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.Design)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            d1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            d2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            d3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            d4++;
+                        }
+                    }
+                    if (@p.TaskType == Database.TaskType.QA)
+                    {
+                        if (@p.Status == Database.Status.Pending)
+                        {
+                            q1++;
+                        }
+                        if (@p.Status == Database.Status.Inprogess)
+                        {
+                            q2++;
+                        }
+                        if (@p.Status == Database.Status.Completed)
+                        {
+                            q3++;
+                        }
+                        if (@p.Status == Database.Status.Reassigned)
+                        {
+                            q4++;
+                        }
+                    }
+                }
+            }
+        }
+
+        @{
+            var status = @Model.Item1.StartDate;
+            var status1 = @Model.Item1.EndDate;
+            var n1 = 0;
+            var n2 = 0;
+            DateTime now1 = DateTime.Now;
+            foreach (var m in Model.Item3)
+            {
+                if (m.ProjectID == @Model.Item1.ProjectID)
+                {
+                    if (now1 <= status1)
+                    {
+                        if (m.Status == Database.Status.Completed)
+                        {
+                            n1++;
+                        }
+                    }
+                }
+                n2 = n1 * 100 / count;
+
+            }
+        }
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card text-white bg-danger align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Pending Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c1
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-info align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Inprogress Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c2
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-success align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Completed Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c3
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary align-items-center justify-content-between">
+                    <div class="card-header">
+                        <h3 class="text-white">Reassigned Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-white">
+                            @c4
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-xl-12">
+            <div class="card">
+                <div class="card-header border-0 fs-30 font-w700">Progress bar</div>
+                <div class="card-body">
+                    <div class="progress breadcrumb default-progress" style="height: 25px;">
+                        <div id="divprogress" class="progress-bar bg-success progress-animated" style="width:@n2%; height:25px;" role="progressbar">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-end mt-1 justify-content-between">
+                        <span class="fs-4"><small class="text-black font-w700">@c3</small> Task Completed</span>
+                        <span class="fs-4">End date: @Model.Item1.EndDate.GetValueOrDefault().ToString("D")</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="fs-30 font-w700">Total Tasks by Task Type</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="mansi_12"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <h4 class="fs-30 font-w700">All Tasks by all status</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-6">
+                                            <div>
+                                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#fc2e53" />
+                                                        </svg>
+                                                        Pending
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c1</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#d653c1" />
+                                                        </svg>
+                                                        Inprogress
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c2</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#09bd3c" />
+                                                        </svg>
+                                                        Completed
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c3</span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between  mb-4">
+                                                    <span class="fs-18 font-w500">
+                                                        <svg class="me-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="20" height="20" rx="6" fill="#94618e" />
+                                                        </svg>
+                                                        Reassigned
+                                                    </span>
+                                                    <span class="fs-18 font-w600">@c4</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 text-center">
+                                            <div id="emailchart123" class="mb-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12" style="block-size:auto;">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="fs-30 font-w700">Status By Task Type</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="bar-chart-grouped" width="800" height="400" style="position:relative;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Contents/vendor/apexchart/apexchart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+@using (@Html.BeginForm("UserDashBoard", "Project", FormMethod.Post))
+{
+    <div class="modal fade bd-example-modal-lg3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-12">
+                                <div class="authincation-content">
+                                    <div class="row no-gutters">
+                                        <div class="col-xl-20">
+                                            <div class="auth-form">
+                                                <div class="card-header">
+                                                    <div class="page-titles card-title">
+                                                        <div class="card-title-large text-dark" style="font-palette:dark;font-size:large;">
+                                                            <div class="row">
+                                                                <ol class="breadcrumb">
+                                                                    <li class="breadcrumb-item "><h1>Project Details</h1></li>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group success callout fa text-right col-lg-1">
+                                                        <button type="button" class="btn btn-close text-right" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div class="form-body">
+                                                    <form asp-action="Edit" asp-controller="Project" method="post">
+                                                        <div class="mb-3">
+                                                            <label class="mb-1" asp-for="Item1.ProjectTitle"><strong>Project Name</strong></label>
+                                                            <input type="text" class="form-control" asp-for="Item1.ProjectTitle" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="mb-1" asp-for="Item1.Key"><strong>Key</strong></label>
+                                                            <input type="text" class="form-control" asp-for="Item1.Key" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="mb-1" asp-for="Item1.Duration"><strong>Duration</strong></label>
+                                                            <input type="text" class="form-control" asp-for="Item1.Duration" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="mb-1"><strong>Description</strong></label>
+                                                            <textarea name="txtarea1" id="txtarea1" cols="20" rows="3" class="form-control" asp-for="Item1.Description" readonly></textarea>
+                                                        </div>
+                                                        @{
+                                                            var name = "";
+                                                            foreach (var obj in Model.Item2)
+                                                            {
+                                                                foreach (var item in Model.Item4)
+                                                                {
+                                                                    if (@obj.UserID == item.UserID)
+                                                                        name = item.FullName;
+                                                                }
+                                                            }
+                                                        }
+                                                        <div class="mb-3">
+                                                            <label class="mb-1"><strong>Created By</strong></label>
+                                                            <input type="text" class="form-control" value="@name" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="mb-1" asp-for="Item1.StartDate"><strong>Start Date</strong></label>
+                                                            <input type="date" class="form-control" asp-for="Item1.StartDate" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="mb-1" asp-for="Item1.EndDate"><strong>End Date</strong></label>
+                                                            <input type="date" class="form-control" placeholder="Date" asp-for="Item1.EndDate" readonly>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+    <script src="https://gitcdn.link/repo/jedtrow/Chart.js-Rounded-Bar-Charts/master/Chart.roundedBarCharts.js"></script>
+    <script type="text/javascript">
+        var mansi12 = document.getElementById("mansi_12");
+        var mainchart = new Chart(mansi12,
+            {
+                type: 'bar',
+                data: {
+                    defaultFontFamily: 'Poppins',
+                    labels: ["Bug", "Enhancement", "Design", "QA"],
+                    datasets: [
+                        {
+                            label: "",
+                            data: [@count1, @count2, @count3, @count4],
+                            borderColor: 'rgba(37,169,4)',
+                            borderWidth: "2",
+                            backgroundColor: 'rgba(120,169,4)'
+                        }
+                    ]
+                },
+                options: {
+                    legend: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            // Change here
+                            barPercentage: 0.5
+                        }]
+                    }
+                }
+            });
+
+        var emailchart123 = function() {
+            var options = {
+                series: [@c1, @c2, @c3, @c4],
+                chart: {
+                    type: 'donut',
+                    height: 250
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    width: 0,
+                },
+                colors: ['#fc2e53', '#d653c1', '#09bd3c', '#94618e'],
+                legend: {
+                    position: 'bottom',
+                    show: false
+                },
+                responsive: [{
+                    breakpoint: 1800,
+                    options: {
+                        chart: {
+                            height: 200
+                        },
+                    }
+                },
+                {
+                    breakpoint: 1800,
+                    options: {
+                        chart: {
+                            height: 200
+                        },
+                    }
+                }
+                ]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#emailchart123"), options);
+            chart.render();
+
+            return {
+                init: function() {
+                },
+
+
+                load: function() {
+                    emailchart123();
+
+                },
+            }
+
+        }();
+
+        var mainchart = new Chart(document.getElementById("bar-chart-grouped"), {
+            type: 'bar',
+            data: {
+                labels: ['Pending', 'Inprogress', 'Completed', 'Reassigned'],
+                datasets: [
+                    {
+                        label: "Bug",
+                        backgroundColor: "#fc2e53",
+                        data: [@b1, @b2, @b3, @b4]
+                    }, {
+                        label: "Enhancement",
+                        backgroundColor: "#d653c1",
+                        data: [@e1, @e2, @e3, @e4]
+                    },
+                    {
+                        label: "Design",
+                        backgroundColor: "#09bd3c",
+                        data: [@d1, @d2, @d3, @d4]
+                    },
+                    {
+                        label: "QA",
+                        backgroundColor: "#94618e",
+                        data: [@q1, @q2, @q3, @q4]
+                    }
+                ]
+            },
+            options: {
+                barValueSpacing: 20,
+                title: {
+                    display: true,
+                    min: 0,
+                    max: 10,
+                }
+            }
+        });
+
+    </script>
+        }

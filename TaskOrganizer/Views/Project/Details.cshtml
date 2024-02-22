@@ -1,0 +1,156 @@
+﻿@model Database.Project
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:title" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
+    <meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- PAGE TITLE HERE -->
+    <title>Task Organizer</title>
+
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/png" href="~/Contents/images/favicon.png" />
+
+    <link href="~/Contents/css/style.css" rel="stylesheet">
+    <link href="~/Contents/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Contents/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Contents/vendor/nouislider/nouislider.min.css">
+    <link href="~/Contents/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Style css -->
+    <link href="~/Contents/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Contents/vendor/toastr/css/toastr.min.css">
+
+</head>
+
+<body class="vh-100">
+    <div class="modal fade bd-example-modal-lg3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-12">
+                                <div class="authincation-content">
+                                    <div class="row no-gutters">
+                                        <div class="col-xl-20">
+                                            <div class="auth-form">
+                                                <button type="button" class="btn-close text-right" data-bs-dismiss="modal">
+                                                </button>
+                                                <div class="text-center mb-3">
+                                                    <img src="~/Contents/images/logo.png" alt="">
+                                                    <h3 class="text-center mb-4">Project Details</h3>
+                                                </div>
+
+
+                                                <form asp-action="Edit" method="post">
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="ProjectTitle"><strong>Project Name</strong></label>
+                                                        <input type="text" class="form-control" asp-for="ProjectTitle" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Key"><strong>Key</strong></label>
+                                                        <input type="text" class="form-control" asp-for="Key" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="Duration"><strong>Duration</strong></label>
+                                                        <input type="text" class="form-control" asp-for=" Duration" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1"><strong>Description</strong></label>
+                                                        <textarea name="txtarea1" id="txtarea1" cols="20" rows="3" class="form-control" asp-for="Description" readonly></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+
+                                                        <input type="text" class="form-control" placeholder="Project Manager" asp-for="UserID" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+
+                                                        <input type="text" class="form-control" placeholder="Assignee : Admin" asp-for="UserID" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="StartDate"><strong>Start Date</strong></label>
+                                                        <input type="date" class="form-control" asp-for="StartDate" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="mb-1" asp-for="EndDate"><strong>End Date</strong></label>
+                                                        <input type="date" class="form-control" placeholder="Date" asp-for="EndDate" readonly>
+                                                    </div>
+
+                                                    @* <div class="container-fluid">*@
+                                                    @*  <div class="row">
+                                                    <div class="col-3">
+                                                    <button type="submit" class="btn btn-dark mb-2  me-2" id="toastr-success-bottom-center" asp-route-id="@Model. ProjectID" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg12" asp-controller="Project" asp-action="Edit">Edit</button>
+                                                    </div>
+                                                    <div class="col-4">
+                                                    <button type="submit" class="btn btn-dark mb-2" data-bs-dismiss="modal"> Cancel</button>
+                                                    </div>
+                                                    </div>*@
+                                                    @*  </div>*@
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="~/Contents/vendor/global/global.min.js"></script>
+    <script src="~/Contents/js/custom.min.js"></script>
+    <script src="~/Contents/js/dlabnav-init.js"></script>
+    <script src="~/Contents/js/styleSwitcher.js"></script>
+    <script src="~/Contents/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/Contents/js/plugins-init/sweetalert.init.js"></script>
+    <script src="~/Contents/js/plugins-init/sweetalert-init.js"></script>
+
+
+
+
+
+
+
+
+
+    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+
+
+    <!-- Toastr -->
+    <script src="~/Contents/vendor/toastr/js/toastr.min.js"></script>
+
+    <!-- All init script -->
+    <script src="~/Contents/js/plugins-init/toastr-init.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

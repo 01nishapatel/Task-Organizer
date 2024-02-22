@@ -1,0 +1,197 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Database.User
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <style>
+
+
+        .field-validation-error {
+            color: red;
+        }
+
+        .input-validation-error {
+            border: 1px solid red;
+        }
+
+        .AvatarPhoto--color2.AvatarPhoto {
+            background-color: forestgreen;
+            color: white;
+        }
+
+        .ProfilePageHeader-avatar {
+            flex-shrink: 0;
+        }
+
+        .Avatar {
+            align-items: center;
+            background: lightGray;
+            border-radius: 50%;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 7%);
+            box-sizing: border-box;
+            color: #fff;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+            display: inline-flex;
+            justify-content: center;
+            position: relative;
+            vertical-align: top;
+        }
+
+        .AvatarPhoto1--xlarge1 {
+            font-size: 30px;
+            height: 88px;
+            line-height: 88px;
+            min-width: 88px;
+            width: 88px;
+        }
+
+        .AvatarPhoto--default {
+            background: center/cover var(--color-customization-background-deprecated-opaque);
+            border-radius: 50%;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 7%);
+            box-sizing: border-box;
+            color: var(--color-customization-foreground);
+        }
+
+        .AvatarPhoto {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            position: relative;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+
+    <!--**********************************
+               Content body start
+           ***********************************-->
+
+    <form action="UserProfile" method="post">
+        <div class="content-body">
+            <div class="container-fluid">
+
+
+
+
+                <div class="container rounded bg-white mt-1 mb-2">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-5 py-7">
+                                <div class="ProfilePageHeader-avatar Avatar AvatarPhoto AvatarPhoto--default AvatarPhoto1--xlarge1 AvatarPhoto--color2" role="img">
+                                    <div aria-hidden="true"> @HttpContextAccessor.HttpContext.Session.GetString("lbl")</div>
+                                </div>
+
+                                <span class="font-weight-bold">@HttpContextAccessor.HttpContext.Session.GetString("uname")</span>
+                                <span class="text-black-50">@HttpContextAccessor.HttpContext.Session.GetString("uemail")</span><span> </span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 border-right">
+                            <div class="p-9 py-4">
+                                <div class="d-flex justify-content-between align-items-center ">
+                                    <h4 class="text-right">Profile Settings</h4>
+                                </div>
+                            </div>
+
+
+
+                            <input type="hidden" asp-for="UserID" />
+
+
+
+                            <div class="col-md-12">
+                                <label class="labels"><strong>Email Id</strong></label>
+
+                                @Html.TextBoxFor(m => m.EmailID, new {@class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.EmailID)
+                            </div>
+                            <input type="hidden" asp-for="@Model.Password" />
+
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="labels"><strong>User Name</strong></label>
+
+                                    @Html.TextBoxFor(m => m.UserName, new {@class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels"><strong>Full Name</strong></label>
+
+                                    @Html.TextBoxFor(m => m.FullName, new {@class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FullName)
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label asp-for="JoinDate" class="labels"><strong>Join Date</strong></label>
+                                    <input type="date" asp-for="JoinDate" class="form-control" placeholder="Date" readonly>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="labels"><strong>Contact Number</strong></label>
+
+                                    @Html.TextBoxFor(m => m.ContactNo, new {@class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ContactNo)
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="mb-1" asp-for="Gender"><strong>Select Gender</strong></label><br />
+                                <select name="gender" id="gender" class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<TaskOrganizer.Models.Gender>()"></select>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="mb-1"><strong>Address</strong></label>
+                                @Html.TextBoxFor(m => m.Address, new {@class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Address)
+                            </div>
+
+
+                            <div class="mb-3">
+                                <input type="hidden" asp-for="@Model.IsAdmin" />
+
+                            </div>
+
+
+
+
+
+                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+
+
+</body>
+</html>
+
